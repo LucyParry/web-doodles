@@ -1,0 +1,199 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<style>
+
+body { 
+  text-align: center;
+}
+
+h1 {
+	font-weight: 600 !important;
+}
+
+.jumbotron {
+	margin-bottom: 0;
+	color: rgb(255, 255, 255);
+	background: #23074d;
+    background: -webkit-linear-gradient(to right, #23074d, #cc5333);
+    background: linear-gradient(to right, #23074d, #cc5333);
+}
+
+.col-md-3 {
+    padding: 3px;
+}
+
+.card-body {
+	font-weight: 600;
+    padding: 1rem;
+}
+
+.card-title-date {
+	padding-bottom: 1em;
+}
+
+.time-label {
+	font-size: 0.9em;
+}
+
+.time-number {
+	font-size: 1.5em;
+}
+
+</style>
+</head>
+    <body onload="javascript:PageOnLoad();">
+
+        <div class="container">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-4">TM470 Countdown</h1>
+                    <h3><span id='greeting'></span></h3>
+                    <h3>
+                        <span id='time'></span>
+                        <span id='date'></span>
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <div class="card-group" id="countdowns">
+                <div class="card" id="card-template">
+                    <div class="card-body">
+                        <h5 class="card-title-main"></h5>
+						<h5 class="card-title-date"></h5>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="time-number"><span class="time-number-days"></span></div>
+                                    <span class="time-label"><span class="time-label-days"></span></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="time-number"><span class="time-number-hours"></span></div>
+                                    <span class="time-label"><span class="time-label-hours"></span></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="time-number"><span class="time-number-mins"></span></div>
+                                    <span class="time-label"><span class="time-label-mins"></span></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="time-number"><span class="time-number-secs"></span></div>
+                                    <span class="time-label"><span class="time-label-secs"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+        </div>
+		
+		<div class="container">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-4">You can do it!</h1>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+<script>
+
+var cardTemplate = document.getElementById('card-template');
+
+var deadlines = [
+	    { name: 'TMA01 deadline', date: new Date("Mar 5, 2019 12:00:00") },
+	    { name: 'TMA02 deadline', date: new Date("Apr 16, 2019 12:00:00") },
+	    { name: 'TMA03 deadline', date: new Date("Jul 9, 2019 12:00:00") },
+	    { name: 'EMA deadline', date: new Date("Sep 16, 2019 12:00:00") }
+    ];
+
+function GetTimeGreeting(datetime) {
+    if (datetime.getHours() < 12) { return "morning"; }
+	else if (datetime.getHours() < 19) { return "afternoon"; }
+	else { return "evening"; }
+}
+
+function GetTimeString(datetime) {
+    return PadZero(datetime.getHours()) + ":" 
+	+ PadZero(datetime.getMinutes()) + ":" 
+	+ PadZero(datetime.getSeconds());
+}
+
+function GetDateString(datetime) {
+    return PadZero(datetime.getUTCDate()) + "/" 
+	+ PadZero(datetime.getUTCMonth() + 1) + "/" 
+	+ datetime.getFullYear();
+}
+
+function PadZero(num) {
+    if ((num.toString()).length == 1) {
+        num = "0" + num.toString();
+    }
+    return num;
+}
+
+function removeChildren(element) {
+	while (element.hasChildNodes()) {
+		element.removeChild(element.lastChild);
+	}
+}
+
+var PageOnLoad = function () {
+
+    clockTicker = setInterval(function () {
+        var currentDateTime = new Date();
+		document.getElementById("greeting").innerHTML = "Good " + GetTimeGreeting(currentDateTime) + "!";
+        document.getElementById("time").innerHTML = "It's " + GetTimeString(currentDateTime) + " ";
+        document.getElementById("date").innerHTML = "on " + GetDateString(currentDateTime);
+		
+        var mainCardGroup = document.getElementById('countdowns');
+        removeChildren(mainCardGroup);
+		
+		deadlines.forEach( function (entry) {		
+			var clone = cardTemplate.cloneNode(true);
+			(clone.getElementsByClassName("card-title-main")[0]).innerHTML = entry.name;
+			(clone.getElementsByClassName("card-title-date")[0]).innerHTML = GetDateString(entry.date);
+				
+			var distanceToDeadline = entry.date - currentDateTime.getTime();
+			
+			if (distanceToDeadline > 0) {
+
+				var days = Math.floor(distanceToDeadline / (1000 * 60 * 60 * 24));
+				var hours = Math.floor((distanceToDeadline % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				var minutes = Math.floor((distanceToDeadline % (1000 * 60 * 60)) / (1000 * 60));
+				var seconds = Math.floor((distanceToDeadline % (1000 * 60)) / 1000);
+				
+				(clone.getElementsByClassName("time-number-days")[0]).innerHTML = days;
+				(clone.getElementsByClassName("time-number-hours")[0]).innerHTML = hours;
+				(clone.getElementsByClassName("time-number-mins")[0]).innerHTML = minutes;
+				(clone.getElementsByClassName("time-number-secs")[0]).innerHTML = seconds;
+				
+				(clone.getElementsByClassName("time-label-days")[0]).innerHTML = "DAYS";
+				(clone.getElementsByClassName("time-label-hours")[0]).innerHTML = "HOURS";
+				(clone.getElementsByClassName("time-label-mins")[0]).innerHTML = "MINS";
+				(clone.getElementsByClassName("time-label-secs")[0]).innerHTML = "SECS";
+			} 
+			else {
+				var expiredRow = clone.getElementsByClassName("row")[0];
+				removeChildren(expiredRow);
+				
+				var newDiv = document.createElement('div');
+				newDiv.innerHTML = "Done!";
+				expiredRow.className = "time-number";				
+				expiredRow.appendChild(newDiv);
+			}
+			mainCardGroup.appendChild(clone);
+		});		
+    }, 1000);
+}
+
+</script>
+</body>
+</html>
