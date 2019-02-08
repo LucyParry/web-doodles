@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -7,10 +7,11 @@
 <style>
 
 body { 
-  text-align: center;
+	text-align: center;
 }
 
-h1 {
+h2 {
+	font-size: 0.75em;
 	font-weight: 600 !important;
 }
 
@@ -22,8 +23,8 @@ h1 {
     background: linear-gradient(to right, #23074d, #cc5333);
 }
 
-.col-md-3 {
-    padding: 3px;
+.col-lg-3 {
+    padding: 2px;
 }
 
 .card-body {
@@ -36,7 +37,7 @@ h1 {
 }
 
 .time-label {
-	font-size: 0.9em;
+	font-size: 0.8em;
 }
 
 .time-number {
@@ -47,10 +48,10 @@ h1 {
 </head>
     <body onload="javascript:PageOnLoad();">
 
-        <div class="container">
+        <div class="container" id="countdown-header">
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <h1 class="display-4">TM470 Countdown</h1>
+                    <h2 class="display-4">TM470-19B Countdown</h2>
                     <h3><span id='greeting'></span></h3>
                     <h3>
                         <span id='time'></span>
@@ -69,19 +70,19 @@ h1 {
 						<h5 class="card-title-date"></h5>
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-lg-3">
                                     <div class="time-number"><span class="time-number-days"></span></div>
                                     <span class="time-label"><span class="time-label-days"></span></span>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-lg-3">
                                     <div class="time-number"><span class="time-number-hours"></span></div>
                                     <span class="time-label"><span class="time-label-hours"></span></span>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-lg-3">
                                     <div class="time-number"><span class="time-number-mins"></span></div>
                                     <span class="time-label"><span class="time-label-mins"></span></span>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-lg-3">
                                     <div class="time-number"><span class="time-number-secs"></span></div>
                                     <span class="time-label"><span class="time-label-secs"></span></span>
                                 </div>
@@ -93,10 +94,10 @@ h1 {
 			
         </div>
 		
-		<div class="container">
+		<div class="container" id="countdown-footer">
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <h1 class="display-4">You can do it!</h1>
+                    <h2 class="display-4">You can do it!</h2>
                 </div>
             </div>
         </div>
