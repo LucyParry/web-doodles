@@ -6,9 +6,7 @@
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 <style>
 
-body { 
-	text-align: center;
-}
+body { text-align: center; font-family: arial, sans-serif; }
 
 h2 {
 	font-size: 0.75em;
@@ -23,26 +21,15 @@ h2 {
     background: linear-gradient(to right, #23074d, #cc5333);
 }
 
-.col-lg-3 {
-    padding: 2px;
-}
-
 .card-body {
 	font-weight: 600;
     padding: 1rem;
 }
 
-.card-title-date {
-	padding-bottom: 1em;
-}
-
-.time-label {
-	font-size: 0.8em;
-}
-
-.time-number {
-	font-size: 1.5em;
-}
+.col-lg-3 { padding: 2px; }
+.card-title-date { padding-bottom: 1em; }
+.time-label { font-size: 0.8em; }
+.time-number { font-size: 1.5em; }
 
 </style>
 </head>
@@ -71,19 +58,19 @@ h2 {
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div class="time-number"><span class="time-number-days"></span></div>
-                                    <span class="time-label"><span class="time-label-days"></span></span>
+                                    <span class="time-label">DAYS</span>
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="time-number"><span class="time-number-hours"></span></div>
-                                    <span class="time-label"><span class="time-label-hours"></span></span>
+                                    <span class="time-label">HOURS</span>
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="time-number"><span class="time-number-mins"></span></div>
-                                    <span class="time-label"><span class="time-label-mins"></span></span>
+                                    <span class="time-label">MINS</span>
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="time-number"><span class="time-number-secs"></span></div>
-                                    <span class="time-label"><span class="time-label-secs"></span></span>
+                                    <span class="time-label">SECS</span>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +106,6 @@ var deadlines = [
     ];
 	
 var cardTemplate = document.getElementById('card-template');
-
 
 function getTimeGreeting(datetime) {
 	if (datetime.getHours() < 12) { return "morning"; }
@@ -162,49 +148,45 @@ function removeChildren(element) {
 	}
 }
 
-var PageOnLoad = function () {
+function doTimeUpdate() {
+	var currentDateTime = new Date();
+	document.getElementById("greeting").innerHTML = "Good " + getTimeGreeting(currentDateTime) + "!";
+	document.getElementById("time").innerHTML = "It's " + getTimeString(currentDateTime) + " ";
+	document.getElementById("date").innerHTML = "on " + getDateString(currentDateTime);
+		
+	var mainCardGroup = document.getElementById('countdowns');
+	removeChildren(mainCardGroup);
+		
+	deadlines.forEach( function (entry) {		
+		var clone = cardTemplate.cloneNode(true);
+		(clone.getElementsByClassName("card-title-main")[0]).innerHTML = entry.name;
+		(clone.getElementsByClassName("card-title-date")[0]).innerHTML = getDateString(entry.date);
+			
+		var millisecsToDeadline = entry.date - currentDateTime.getTime();			
+		if (millisecsToDeadline > 0) {			
+			var timeElements = getTimeElements(millisecsToDeadline);
+			(clone.getElementsByClassName("time-number-days")[0]).innerHTML = timeElements.days;
+			(clone.getElementsByClassName("time-number-hours")[0]).innerHTML = timeElements.hours;
+			(clone.getElementsByClassName("time-number-mins")[0]).innerHTML = timeElements.mins;
+			(clone.getElementsByClassName("time-number-secs")[0]).innerHTML = timeElements.secs;
+		} 
+		else {
+			var expiredRow = clone.getElementsByClassName("row")[0];
+			removeChildren(expiredRow);
+			
+			var newDiv = document.createElement('div');
+			newDiv.innerHTML = "Done!";
+			expiredRow.className = "time-number";				
+			expiredRow.appendChild(newDiv);
+		}
+		mainCardGroup.appendChild(clone);
+	});	
+}
 
+var PageOnLoad = function () {	
+	doTimeUpdate();
 	clockTicker = setInterval(function () {
-		var currentDateTime = new Date();
-		document.getElementById("greeting").innerHTML = "Good " + getTimeGreeting(currentDateTime) + "!";
-		document.getElementById("time").innerHTML = "It's " + getTimeString(currentDateTime) + " ";
-		document.getElementById("date").innerHTML = "on " + getDateString(currentDateTime);
-		
-		var mainCardGroup = document.getElementById('countdowns');
-		removeChildren(mainCardGroup);
-		
-		deadlines.forEach( function (entry) {		
-			var clone = cardTemplate.cloneNode(true);
-			(clone.getElementsByClassName("card-title-main")[0]).innerHTML = entry.name;
-			(clone.getElementsByClassName("card-title-date")[0]).innerHTML = getDateString(entry.date);
-			
-			var millisecsToDeadline = entry.date - currentDateTime.getTime();
-			
-			if (millisecsToDeadline > 0) {
-			
-				var timeElements = getTimeElements(millisecsToDeadline);
-
-				(clone.getElementsByClassName("time-number-days")[0]).innerHTML = timeElements.days;
-				(clone.getElementsByClassName("time-number-hours")[0]).innerHTML = timeElements.hours;
-				(clone.getElementsByClassName("time-number-mins")[0]).innerHTML = timeElements.mins;
-				(clone.getElementsByClassName("time-number-secs")[0]).innerHTML = timeElements.secs;
-				
-				(clone.getElementsByClassName("time-label-days")[0]).innerHTML = "DAYS";
-				(clone.getElementsByClassName("time-label-hours")[0]).innerHTML = "HOURS";
-				(clone.getElementsByClassName("time-label-mins")[0]).innerHTML = "MINS";
-				(clone.getElementsByClassName("time-label-secs")[0]).innerHTML = "SECS";
-			} 
-			else {
-				var expiredRow = clone.getElementsByClassName("row")[0];
-				removeChildren(expiredRow);
-				
-				var newDiv = document.createElement('div');
-				newDiv.innerHTML = "Done!";
-				expiredRow.className = "time-number";				
-				expiredRow.appendChild(newDiv);
-			}
-			mainCardGroup.appendChild(clone);
-		});		
+		doTimeUpdate();
 	}, 1000);
 }
 
