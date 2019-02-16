@@ -1,0 +1,24 @@
+body { text-align: center; }
+
+.col-lg-3 { padding: 2px; }
+.card-title-date { padding-bottom: 1em; }
+.time-label { font-size: 0.8em; }
+.time-number { font-size: 1.5em; }
+
+h2 {
+    font-size: 0.75em;
+    font-weight: 600 !important;
+}
+
+.jumbotron {
+    margin-bottom: 0;
+    color: rgb(255, 255, 255);
+    background: #23074d;
+    background: -webkit-linear-gradient(to right, #23074d, #cc5333);
+    background: linear-gradient(to right, #23074d, #cc5333);
+}
+
+.card-body {
+    font-weight: 600;
+    padding: 1rem;
+}
