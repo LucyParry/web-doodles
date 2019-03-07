@@ -1,11 +1,13 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link href="styles.css" rel="stylesheet">
-    <script src="countdown-functions.js" type="text/javascript"></script>
+    <link href="styles/styles.css" rel="stylesheet">
+    <script src="scripts/utility.js" type="text/javascript"></script>
+    <script src="scripts/wisdom.js" type="text/javascript"></script>
+    <script src="scripts/countdown.js" type="text/javascript"></script>
 </head>
 
 <body onload="javascript:PageOnLoad();">
@@ -55,59 +57,68 @@
     </div>
 
     <div class="container" id="countdown-footer">
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h3>You can do it!</h3>
-            </div>
+        <div class="jumbotron">
+            <h3 id="wisdom-text"></h3>
+            <h3 id="wisdom-author"></h3>
+            <p id="wisdom-submitted-by"></p>
         </div>
     </div>
 
-<script>
 
-    var cardTemplate = document.getElementById('card-template');
+    <script>
 
-    function doTimeUpdate() {
-        var currentDateTime = new Date();
-        document.getElementById("greeting").innerHTML = "Good " + getTimeGreeting(currentDateTime) + "!";
-        document.getElementById("time").innerHTML = "It's " + getTimeString(currentDateTime) + " ";
-        document.getElementById("date").innerHTML = "on " + getDateString(currentDateTime);
+        var cardTemplate = document.getElementById('card-template');
 
-        var mainCardGroup = document.getElementById('countdowns');
-        removeChildren(mainCardGroup);
+        function doWisdom() {
+            var wisdom = getRandomWisdom();
+            document.getElementById("wisdom-text").innerHTML = '"' + wisdom.text + '"';
+            document.getElementById("wisdom-author").innerHTML = ' - ' + wisdom.author;
+            document.getElementById("wisdom-submitted-by").innerHTML = (wisdom.submittedBy == "" ? "" : "Submitted by " + wisdom.submittedBy);
+        }
 
-        deadlines.forEach(function (entry) {
-            var clone = cardTemplate.cloneNode(true);
-            (clone.getElementsByClassName("card-title-main")[0]).innerHTML = entry.name;
-            (clone.getElementsByClassName("card-title-date")[0]).innerHTML = getDateString(entry.date);
+        function doTimeUpdate() {
+            var currentDateTime = new Date();
+            document.getElementById("greeting").innerHTML = "Good " + getTimeGreeting(currentDateTime) + "!";
+            document.getElementById("time").innerHTML = "It's " + getTimeString(currentDateTime) + " ";
+            document.getElementById("date").innerHTML = "on " + getDateString(currentDateTime);
 
-            var millisecsToDeadline = entry.date - currentDateTime.getTime();
-            if (millisecsToDeadline > 0) {
-                var timeElements = getTimeElements(millisecsToDeadline);
-                (clone.getElementsByClassName("time-number-days")[0]).innerHTML = timeElements.days;
-                (clone.getElementsByClassName("time-number-hours")[0]).innerHTML = timeElements.hours;
-                (clone.getElementsByClassName("time-number-mins")[0]).innerHTML = timeElements.mins;
-                (clone.getElementsByClassName("time-number-secs")[0]).innerHTML = timeElements.secs;
-            }
-            else {
-                var expiredRow = clone.getElementsByClassName("row")[0];
-                removeChildren(expiredRow);
+            var mainCardGroup = document.getElementById('countdowns');
+            removeChildren(mainCardGroup);
 
-                var newDiv = document.createElement('div');
-                newDiv.innerHTML = "Done!";
-                expiredRow.className = "time-number";
-                expiredRow.appendChild(newDiv);
-            }
-            mainCardGroup.appendChild(clone);
-        });
-    }
+            deadlines.forEach(function (entry) {
+                var clone = cardTemplate.cloneNode(true);
+                (clone.getElementsByClassName("card-title-main")[0]).innerHTML = entry.name;
+                (clone.getElementsByClassName("card-title-date")[0]).innerHTML = getDateString(entry.date);
 
-    var PageOnLoad = function () {
-        doTimeUpdate();
-        clockTicker = setInterval(function () {
+                var millisecsToDeadline = entry.date - currentDateTime.getTime();
+                if (millisecsToDeadline > 0) {
+                    var timeElements = getTimeElements(millisecsToDeadline);
+                    (clone.getElementsByClassName("time-number-days")[0]).innerHTML = timeElements.days;
+                    (clone.getElementsByClassName("time-number-hours")[0]).innerHTML = timeElements.hours;
+                    (clone.getElementsByClassName("time-number-mins")[0]).innerHTML = timeElements.mins;
+                    (clone.getElementsByClassName("time-number-secs")[0]).innerHTML = timeElements.secs;
+                }
+                else {
+                    var expiredRow = clone.getElementsByClassName("row")[0];
+                    removeChildren(expiredRow);
+
+                    var newDiv = document.createElement('div');
+                    newDiv.innerHTML = "Done!";
+                    expiredRow.className = "time-number";
+                    expiredRow.appendChild(newDiv);
+                }
+                mainCardGroup.appendChild(clone);
+            });
+        }
+
+        var PageOnLoad = function () {
+            doWisdom();
             doTimeUpdate();
-        }, 1000);
-    }
+            clockTicker = setInterval(function () {
+                doTimeUpdate();
+            }, 1000);
+        }
 
-</script>
+    </script>
 </body>
 </html>
