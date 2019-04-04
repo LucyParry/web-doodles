@@ -6,7 +6,7 @@ function getRandomWisdom() {
 var wisdom = [
     {
         "text": "Hofstadter's Law: It always takes longer than you expect, even when you take into account Hofstadter's Law.",
-        "author": "Douglas Hofstadter",
+        "author": "<a href='https://en.wikipedia.org/wiki/Douglas_Hofstadter'>Douglas Hofstadter</a>",
         "submittedBy": ""
     },
     {
