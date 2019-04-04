@@ -25,8 +25,7 @@ var wisdom = [
         "submittedBy": ""
     },
     {
-        "text": "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
-        "author": "<a href='https://en.wikipedia.org/wiki/Martin_Fowler_(software_engineer)'>Martin Fowler</a>",
+        "text": "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",'        "author": "<a href='https://en.wikipedia.org/wiki/Martin_Fowler_(software_engineer)'>Martin Fowler</a>",
         "submittedBy": ""
     },
     {
@@ -51,7 +50,7 @@ var wisdom = [
     },
     {
         "text": "(on the Open University) ... a great independent university which does not insult any man or any woman whatever their background by offering them the second best, nothing but the best is good enough.",
-        "author": '<a href="https://en.wikipedia.org/wiki/Jennie_Lee,_Baroness_Lee_of_Asheridge'>Jennie Lee, Baroness Lee of Asheridge</a>",
+        "author": "<a href='https://en.wikipedia.org/wiki/Jennie_Lee,_Baroness_Lee_of_Asheridge'>Jennie Lee, Baroness Lee of Asheridge</a>",
         "submittedBy": ""
     },
     {
