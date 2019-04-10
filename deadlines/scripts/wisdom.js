@@ -78,15 +78,25 @@ var wisdom = [
         "text": "Understand well as I may, my comprehension can only be an infinitesimal fraction of all I want to understand.",
         "author": "<a href='https://en.wikipedia.org/wiki/Ada_Lovelace'>Ada Lovelace</a>",
         "submittedBy": ""
-    },    
+    },
     {
-        "text": "The best thing about a Boolean is, even if you are wrong, you are only off by a bit.",
-        "author": "Anonymous",
+        "text": "(on his early computers) My programming language was solder.",
+        "author": "<a href='https://en.wikipedia.org/wiki/Terry_Pratchett'>Sir Terry Pratchett</a>",
         "submittedBy": ""
     },
     {
+        "text": "Courage calls to courage everywhere, and its voice cannot be denied.",
+        "author": "<a href='https://en.wikipedia.org/wiki/Millicent_Fawcett'>Dame Millicent Garrett Fawcett</a>",
+        "submittedBy": ""
+    }, 
+    {
         "text": "On two occasions I have been asked, 'Pray, Mr. Babbage, if you put into the machine wrong figures, will the right answers come out?' I am not able rightly to apprehend the kind of confusion of ideas that could provoke such a question.",
         "author": "<a href='https://en.wikipedia.org/wiki/Charles_Babbage'>Charles Babbage</a>",
+        "submittedBy": ""
+    },
+    {
+        "text": "The best thing about a Boolean is, even if you are wrong, you are only off by a bit.",
+        "author": "Anonymous",
         "submittedBy": ""
     },
     {
@@ -100,7 +110,7 @@ var wisdom = [
         "submittedBy": ""
     },
     {
-        "text": "Do or do not, there is no // TODO",
+        "text": "Do or do not, there is no //TODO",
         "author": "Anonymous",
         "submittedBy": ""
     },
