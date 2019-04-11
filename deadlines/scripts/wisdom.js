@@ -11,7 +11,7 @@ var wisdom = [
     },
     {
         "text": "If it's a good idea, go ahead and do it. It is much easier to apologise than it is to get permission.",
-        "author": "<a href='https://en.wikipedia.org/wiki/Grace_Hopper'>Rear Admiral Grace Hopper</a>",
+        "author": "<a href='https://en.wikipedia.org/wiki/Grace_Hopper'>Grace Hopper</a>",
         "submittedBy": ""
     },
     {
@@ -66,7 +66,7 @@ var wisdom = [
     },
     {
         "text": "To me programming is more than an important practical art. It is also a gigantic undertaking in the foundations of knowledge.",
-        "author": "<a href='https://en.wikipedia.org/wiki/Grace_Hopper'>Rear Admiral Grace Hopper</a>",
+        "author": "<a href='https://en.wikipedia.org/wiki/Grace_Hopper'>Grace Hopper</a>",
         "submittedBy": ""
     },
     {
@@ -81,17 +81,52 @@ var wisdom = [
     },
     {
         "text": "(on his early computers) My programming language was solder.",
-        "author": "<a href='https://en.wikipedia.org/wiki/Terry_Pratchett'>Sir Terry Pratchett</a>",
+        "author": "<a href='https://en.wikipedia.org/wiki/Terry_Pratchett'>Terry Pratchett</a>",
         "submittedBy": ""
     },
     {
         "text": "Courage calls to courage everywhere, and its voice cannot be denied.",
-        "author": "<a href='https://en.wikipedia.org/wiki/Millicent_Fawcett'>Dame Millicent Garrett Fawcett</a>",
+        "author": "<a href='https://en.wikipedia.org/wiki/Millicent_Fawcett'>Millicent Fawcett</a>",
         "submittedBy": ""
     }, 
     {
         "text": "On two occasions I have been asked, 'Pray, Mr. Babbage, if you put into the machine wrong figures, will the right answers come out?' I am not able rightly to apprehend the kind of confusion of ideas that could provoke such a question.",
         "author": "<a href='https://en.wikipedia.org/wiki/Charles_Babbage'>Charles Babbage</a>",
+        "submittedBy": ""
+    },
+    {
+        "text": "The most damaging phrase in the language is: 'It's always been done that way.'",
+        "author": "<a href='https://en.wikipedia.org/wiki/Grace_Hopper'>Grace Hopper</a>",
+        "submittedBy": ""
+    },
+    {
+        "text": "The entire history of software engineering is that of the rise in levels of abstraction.'",
+        "author": "<a href='https://en.wikipedia.org/wiki/Grady_Booch'>Grady Booch</a>",
+        "submittedBy": ""
+    },
+    {
+        "text": "Computing is too important to be left to men.",
+        "author": "<a href='https://en.wikipedia.org/wiki/Karen_Sp%C3%A4rck_Jones'>Karen Spärck Jones</a>",
+        "submittedBy": ""
+    },
+    {
+        "text": "The function of good software is to make the complex appear to be simple.",
+        "author": "<a href='https://en.wikipedia.org/wiki/Grady_Booch'>Grady Booch</a>",
+        "submittedBy": ""
+    },
+    {
+        "text": "(on the impact of software on society) ... there is an interaction between the context and the programming task itself ... You don’t need a fundamental philosophical discussion every time you put finger to keyboard, but as computing is spreading so far into people’s lives, you need to think about these things.",
+        "author": "<a href='https://en.wikipedia.org/wiki/Karen_Sp%C3%A4rck_Jones'>Karen Spärck Jones</a>",
+        "submittedBy": ""
+    },
+    {
+        "text": "I liked the idea that a piece of information is really defined only by what it's related to, and how it's related. There really is little else to meaning. The structure is everything.",
+        "author": "<a href='https://en.wikipedia.org/wiki/Tim_Berners-Lee'>Tim Berners-Lee</a>",
+        "submittedBy": ""
+    },
+    {
+        "text": "Machines take me by surprise with great frequency.",
+        "author": "<a href='https://en.wikipedia.org/wiki/Alan_Turing'>Alan Turing</a>",
         "submittedBy": ""
     },
     {
