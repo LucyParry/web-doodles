@@ -106,7 +106,7 @@ var wisdom = [
     },
     {
         "text": "Computing is too important to be left to men.",
-        "author": "<a href='https://en.wikipedia.org/wiki/Karen_Sp%C3%A4rck_Jones'>Karen Spärck Jones</a>",
+        "author": "<a href='https://en.wikipedia.org/wiki/Karen_Spärck_Jones'>Karen Spärck Jones</a>",
         "submittedBy": ""
     },
     {
@@ -116,7 +116,7 @@ var wisdom = [
     },
     {
         "text": "(on the impact of software on society) ... there is an interaction between the context and the programming task itself ... You don’t need a fundamental philosophical discussion every time you put finger to keyboard, but as computing is spreading so far into people’s lives, you need to think about these things.",
-        "author": "<a href='https://en.wikipedia.org/wiki/Karen_Sp%C3%A4rck_Jones'>Karen Spärck Jones</a>",
+        "author": "<a href='https://en.wikipedia.org/wiki/Karen_Spärck_Jones'>Karen Spärck Jones</a>",
         "submittedBy": ""
     },
     {
@@ -127,6 +127,11 @@ var wisdom = [
     {
         "text": "Machines take me by surprise with great frequency.",
         "author": "<a href='https://en.wikipedia.org/wiki/Alan_Turing'>Alan Turing</a>",
+        "submittedBy": ""
+    },
+    {
+        "text": "A witty saying proves nothing.",
+        "author": "<a href='https://en.wikipedia.org/wiki/Voltaire'>Voltaire</a>",
         "submittedBy": ""
     },
     {
