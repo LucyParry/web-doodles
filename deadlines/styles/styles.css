@@ -28,3 +28,7 @@ h2 {
 #wisdom-add {
     padding-top: 10px;
 }
+
+#wisdom-text {
+    font-style: italic;
+}

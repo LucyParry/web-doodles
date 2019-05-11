@@ -106,7 +106,7 @@ var wisdom = [
     },
     {
         "text": "Computing is too important to be left to men.",
-        "author": "<a href='https://en.wikipedia.org/wiki/Karen_Spärck_Jones'>Karen Spärck Jones</a>",
+        "author": "<a href='https://en.wikipedia.org/wiki/Karen_Sp&auml;rck_Jones'>Karen Sp&auml;rck Jones</a>",
         "submittedBy": ""
     },
     {
@@ -115,8 +115,8 @@ var wisdom = [
         "submittedBy": ""
     },
     {
-        "text": "(on the impact of software on society) ... there is an interaction between the context and the programming task itself ... You don’t need a fundamental philosophical discussion every time you put finger to keyboard, but as computing is spreading so far into people’s lives, you need to think about these things.",
-        "author": "<a href='https://en.wikipedia.org/wiki/Karen_Spärck_Jones'>Karen Spärck Jones</a>",
+        "text": "(on the impact of software on society) ... there is an interaction between the context and the programming task itself ... You don't need a fundamental philosophical discussion every time you put finger to keyboard, but as computing is spreading so far into people's lives, you need to think about these things.",
+        "author": "<a href='https://en.wikipedia.org/wiki/Karen_Sp&auml;rck_Jones'>Karen Sp&auml;rck Jones</a>",
         "submittedBy": ""
     },
     {
@@ -132,6 +132,11 @@ var wisdom = [
     {
         "text": "A witty saying proves nothing.",
         "author": "<a href='https://en.wikipedia.org/wiki/Voltaire'>Voltaire</a>",
+        "submittedBy": ""
+    },
+    {
+        "text": "You're thinking too much with your <span style='font-style:italic'>eyeballs</span>, and not enough with your <span style='font-style:italic'>mind hole</span>.",
+        "author": "<a href='https://en.wikipedia.org/wiki/Jake_the_Dog'>Jake the Dog</a> - <a href='https://en.wikipedia.org/wiki/Adventure_Time'><span style='font-style:italic'>Adventure Time</span></a>",
         "submittedBy": ""
     },
     {
