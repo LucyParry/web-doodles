@@ -43,8 +43,8 @@ function getTimeElements(timeMillisecs) {
 }
 
 function padZero(num) {
-    if ((num.toString()).length === 1) {
-        num = "0" + num.toString();
+    if (num < 10) {
+        num = "0" + num;
     }
     return num;
 }
