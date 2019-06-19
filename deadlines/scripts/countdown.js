@@ -42,11 +42,8 @@ function getTimeElements(timeMillisecs) {
     return timeElements;
 }
 
-function padZero(num) {
-    if (num < 10) {
-        num = "0" + num;
-    }
-    return num;
+function padZero(num) {             
+    return (num < 10 ? "0" + num : num);
 }
 
 function removeChildren(element) {
