@@ -147,7 +147,7 @@ var wisdom = [
     {
         // Facebook group TMA score posts getting you down? It's OK! :)
         "text": "Who knows himself a braggart, let him fear this, for it will come to pass that every braggart shall be found an ass.",
-        "author": "<a href='https://en.wikipedia.org/wiki/William_Shakespeare'>William Shakespeare</a> - <a href='https://en.wikipedia.org/wiki/Adventure_Time'><span style='font-style:italic'>All's Well that Ends Well</span></a>",
+        "author": "<a href='https://en.wikipedia.org/wiki/William_Shakespeare'>William Shakespeare</a> - <a href='https://en.wikipedia.org/wiki/All%27s_Well_That_Ends_Well'><span style='font-style:italic'>All's Well that Ends Well</span></a>",
         "submittedBy": ""
     },
     {
