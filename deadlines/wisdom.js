@@ -130,6 +130,11 @@ var wisdom = [
         "submittedBy": ""
     },
     {
+        "text": "(on coming up with the term 'software engineering') It was an ongoing joke for a long time. They liked to kid me about my radical ideas. It was a memorable day when one of the most respected hardware gurus explained to everyone in a meeting that he agreed with me that the process of building software should also be considered an engineering discipline, just like with hardware. Not because of his acceptance of the new 'term' per se, but because we had earned his and the acceptance of the others in the room as being in an engineering field in its own right.",
+        "author": "<a href='https://en.wikipedia.org/wiki/Margaret_Hamilton_(software_engineer)'>Margaret Hamilton</a>",
+        "submittedBy": ""
+    },
+    {
         "text": "A witty saying proves nothing.",
         "author": "<a href='https://en.wikipedia.org/wiki/Voltaire'>Voltaire</a>",
         "submittedBy": ""
@@ -137,6 +142,12 @@ var wisdom = [
     {
         "text": "You're thinking too much with your <span style='font-style:italic'>eyeballs</span>, and not enough with your <span style='font-style:italic'>mind hole</span>.",
         "author": "<a href='https://en.wikipedia.org/wiki/Jake_the_Dog'>Jake the Dog</a> - <a href='https://en.wikipedia.org/wiki/Adventure_Time'><span style='font-style:italic'>Adventure Time</span></a>",
+        "submittedBy": ""
+    },
+    {
+        // Facebook group TMA score posts getting you down? It's OK! :)
+        "text": "Who knows himself a braggart, let him fear this, for it will come to pass that every braggart shall be found an ass.",
+        "author": "<a href='https://en.wikipedia.org/wiki/William_Shakespeare'>William Shakespeare</a> - <a href='https://en.wikipedia.org/wiki/Adventure_Time'><span style='font-style:italic'>All's Well that Ends Well</span></a>",
         "submittedBy": ""
     },
     {
@@ -156,7 +167,7 @@ var wisdom = [
     },
     {
         "text": "Do or do not, there is no //TODO",
-        "author": "Anonymous",
+        "author": "Anonymous (with apologies to <a href='https://en.wikipedia.org/wiki/Yoda'>Yoda</a>)",
         "submittedBy": ""
     },
 ];
