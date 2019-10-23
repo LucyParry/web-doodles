@@ -11,7 +11,8 @@ var deadlines = [
     { name: 'TMA01 deadline', date: new Date("Mar 5, 2019 12:00:00") },
     { name: 'TMA02 deadline', date: new Date("Apr 16, 2019 12:00:00") },
     { name: 'TMA03 deadline', date: new Date("Jul 9, 2019 12:00:00") },
-    { name: 'EMA deadline', date: new Date("Sep 16, 2019 12:00:00") }
+    { name: 'EMA deadline', date: new Date("Sep 16, 2019 12:00:00") },
+    { name: 'Results', date: new Date("Dec 9, 2019 12:00:00") }
 ];
 
 function getTimeGreeting(datetime) {
