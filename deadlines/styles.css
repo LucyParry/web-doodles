@@ -15,9 +15,12 @@ h2 {
 .jumbotron {
     margin-bottom: 0;
     color: rgb(255, 255, 255);
-    background: #23074d;
-    background: -webkit-linear-gradient(to right, #23074d, #cc5333);
-    background: linear-gradient(to right, #23074d, #cc5333);
+    background: #48c6ef;
+    background: -webkit-linear-gradient(to right, #48c6ef, #6f86d6);
+    background: linear-gradient(to right, #48c6ef, #6f86d6);
+    /*background: #d200b8;
+    background: -webkit-linear-gradient(to right, #d200b8, #ffbc36);
+    background: linear-gradient(to right, #d200b8, #ffbc36);*/
 }
 
 .card-body {
