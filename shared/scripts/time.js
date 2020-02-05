@@ -7,18 +7,16 @@ var MILLISECS_IN_MIN = (MILLISECS_IN_SEC * SECS_IN_MIN);
 var MILLISECS_IN_HOUR = (MILLISECS_IN_SEC * SECS_IN_MIN * MINS_IN_HOUR);
 var MILLISECS_IN_DAY = (MILLISECS_IN_SEC * SECS_IN_MIN * MINS_IN_HOUR * HOURS_IN_DAY);
 
-var deadlines = [
-    { name: 'TMA01 deadline', date: new Date("Mar 5, 2019 12:00:00") },
-    { name: 'TMA02 deadline', date: new Date("Apr 16, 2019 12:00:00") },
-    { name: 'TMA03 deadline', date: new Date("Jul 9, 2019 12:00:00") },
-    { name: 'EMA deadline', date: new Date("Sep 16, 2019 12:00:00") },
-    { name: 'Results', date: new Date("Dec 9, 2019 12:00:00") }
-];
-
 function getTimeGreeting(datetime) {
     if (datetime.getHours() < 12) { return "morning"; }
     else if (datetime.getHours() < 19) { return "afternoon"; }
     else { return "evening"; }
+}
+
+function getTimeClass(datetime) {
+    if (datetime.getHours() > 5 && datetime.getHours() < 13) { return "morning"; }
+    else if (datetime.getHours() < 19) { return "afternoon"; }
+    else { return "night"; }
 }
 
 function getTimeString(datetime) {
@@ -33,26 +31,15 @@ function getDateString(datetime) {
         + datetime.getFullYear();
 }
 
-function getTimeElements(timeMillisecs) {
-    var timeElements = {
+function getTimeParts(timeMillisecs) {
+    return timeParts = {
         days: Math.floor(timeMillisecs / MILLISECS_IN_DAY),
         hours: Math.floor((timeMillisecs % MILLISECS_IN_DAY) / MILLISECS_IN_HOUR),
         mins: Math.floor((timeMillisecs % MILLISECS_IN_HOUR) / MILLISECS_IN_MIN),
         secs: Math.floor((timeMillisecs % MILLISECS_IN_MIN) / MILLISECS_IN_SEC)
     };
-    return timeElements;
 }
 
-function padZero(num) {             
+function padZero(num) {
     return (num < 10 ? "0" + num : num);
-}
-
-function removeChildren(element) {
-    while (element.hasChildNodes()) {
-        element.removeChild(element.lastChild);
-    }
-}
-
-function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
 }

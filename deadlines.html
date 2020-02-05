@@ -1,16 +1,13 @@
-<!DOCTYPE HTML>
-<html>
+﻿<!DOCTYPE HTML>
+<html lang="en-gb">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
-    <link href="styles.css" rel="stylesheet">
-    <link href="favicon.ico" rel="shortcut icon">
-
-    <script src="wisdom.js" type="text/javascript"></script>
-    <script src="countdown.js" type="text/javascript"></script>
+    <link href="shared/styles/styles.css" rel="stylesheet">
+    <script src="shared/scripts/wisdom.js" type="text/javascript"></script>
+    <script src="shared/scripts/time.js" type="text/javascript"></script>
 
     <title>TM470-19B Countdown</title>
 </head>
@@ -71,8 +68,15 @@
         </div>
     </div>
 
-
     <script>
+
+        var deadlines = [
+            { name: 'TMA01 deadline', date: new Date("Mar 5, 2019 12:00:00") },
+            { name: 'TMA02 deadline', date: new Date("Apr 16, 2019 12:00:00") },
+            { name: 'TMA03 deadline', date: new Date("Jul 9, 2019 12:00:00") },
+            { name: 'EMA deadline', date: new Date("Sep 16, 2019 12:00:00") },
+            { name: 'Results', date: new Date("Dec 9, 2019 12:00:00") }
+        ];
 
         var cardTemplate = document.getElementById('card-template');
 
@@ -81,6 +85,17 @@
             document.getElementById("wisdom-text").innerHTML = '"' + wisdom.text + '"';
             document.getElementById("wisdom-author").innerHTML = ' - ' + wisdom.author;
             document.getElementById("wisdom-submitted-by").innerHTML = (wisdom.submittedBy == "" ? "" : "Submitted by " + wisdom.submittedBy);
+        }
+
+        
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
+        function removeChildren(element) {
+            while (element.hasChildNodes()) {
+                element.removeChild(element.lastChild);
+            }
         }
 
         function doTimeUpdate() {
@@ -99,7 +114,7 @@
 
                 var millisecsToDeadline = entry.date - currentDateTime.getTime();
                 if (millisecsToDeadline > 0) {
-                    var timeElements = getTimeElements(millisecsToDeadline);
+                    var timeElements = getTimeParts(millisecsToDeadline);
                     (clone.getElementsByClassName("time-number-days")[0]).innerHTML = timeElements.days;
                     (clone.getElementsByClassName("time-number-hours")[0]).innerHTML = timeElements.hours;
                     (clone.getElementsByClassName("time-number-mins")[0]).innerHTML = timeElements.mins;

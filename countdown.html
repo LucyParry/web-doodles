@@ -1,0 +1,138 @@
+﻿<!DOCTYPE HTML>
+<html lang="en-gb">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="shared/scripts/time.js" type="text/javascript"></script>
+    <title>Tiny Countdown</title>
+
+    <style>
+        
+        html {
+            margin: 0;
+            color: rgb(255, 255, 255);
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        .time-number {
+            font-weight: bold;
+            font-size: 2.5em;
+            margin: unset;
+        }
+
+        .label {
+            color: rgba(255, 255, 255, 1);
+            font-weight: bold;
+            font-size: 1em;
+            margin: unset;
+        }
+
+        .morning {
+            background: rgb(10,102,211) fixed;
+            background: linear-gradient(to bottom, rgba(10,102,211,1) 0%, rgba(254,240,230,0) 66%, rgba(255,252,85,1) 100%) fixed; 
+        }
+
+        .afternoon {
+            background: rgb(78,140,213) fixed;
+            background: linear-gradient(to bottom, rgba(78,140,213,1) 0%, rgba(255,111,109,0) 66%, rgba(255,183,65,1) 100%) fixed; 
+        }
+
+        .night {
+            background: rgb(15,1,43) fixed;
+            background: linear-gradient(to bottom, rgba(15,1,43,1) 0%, rgba(87,31,90,0) 75%, rgba(222,211,165,1) 100%) fixed; 
+        }
+
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+            .flex-container > div {
+                background-color: rgba(0, 0, 0, 0.1);
+                min-width: 130px;
+                margin: 5px;
+                padding: 15px 5px 15px 5px;
+            }
+
+    </style>
+</head>
+
+<body onload="javascript:PageOnLoad();">
+    <div>
+        <div class="header">
+            <h1 id="greeting"></h1>
+            <h2 id="datetime"></h2>
+        </div>
+        <div class="flex-container">
+            <div>
+                <p id="days" class="time-number"></p>
+                <p class="label">Days</p>
+            </div>
+            <div>
+                <p id="hours" class="time-number"></p>
+                <p class="label">Hours</p>
+            </div>
+            <div>
+                <p id="mins" class="time-number"></p>
+                <p class="label">Mins</p>
+            </div>
+            <div>
+                <p id="secs" class="time-number"></p>
+                <p class="label">Secs</p>
+            </div>
+        </div>
+        <div class="footer">
+            <h2 id="event"></h2>
+        </div>
+    </div>
+    
+    <script>
+
+        var event;
+
+        function parseQueryString() {
+            var qVars = {};
+            var qString = location.search.replace('?','').split('&');
+            qString.forEach(function (qsVar) {
+                var value = qsVar.split('=');
+                qVars[value[0]] = value[1];
+            });
+            event = {
+                name: decodeURIComponent(qVars['e']),
+                dateTime: Date.parse(`${qVars['yy']}-${qVars['mm']}-${qVars['dd']}T${qVars['hh']}:${qVars['nn']}:${qVars['ss']}`)
+            };
+            return event;
+        }
+
+        function updateNow(currentDateTime) {
+            document.getElementById("greeting").innerHTML = `Good ${getTimeGreeting(currentDateTime)}!`;
+            document.getElementById("datetime").innerHTML = `It's ${getTimeString(currentDateTime)} on ${getDateString(currentDateTime)}`;
+        }
+
+        function updateEvent(now) {
+            updateNow(now);
+            msToTarget = event.dateTime - now.getTime();
+            var timeParts = getTimeParts(msToTarget);
+            if (!isNaN(event.dateTime)) {
+                document.getElementById("days").innerHTML = timeParts.days > 0 ? timeParts.days : timeParts.days * -1;
+                document.getElementById("hours").innerHTML = timeParts.hours > 0 ? timeParts.hours : timeParts.hours * -1;
+                document.getElementById("mins").innerHTML = timeParts.mins > 0 ? timeParts.mins : timeParts.mins * -1;
+                document.getElementById("secs").innerHTML = timeParts.secs > 0 ? timeParts.secs : timeParts.secs * -1;
+                document.getElementById("event").innerHTML = msToTarget > 0 ? `until ${event.name}` : `since ${event.name}`;
+            }
+        }
+
+        var PageOnLoad = function () {
+            document.getElementsByTagName('body')[0].className = getTimeClass(new Date());
+            event = parseQueryString();
+            updateEvent(new Date());
+            clockTicker = setInterval(function () {
+                updateEvent(new Date());
+            }, 1000);
+        }
+
+    </script>
+</body>
+</html>
