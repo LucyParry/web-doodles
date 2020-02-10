@@ -112,6 +112,7 @@
         }
 
         function updateNow(currentDateTime) {
+            document.getElementsByTagName('body')[0].className = getTimeClass(new Date());
             document.getElementById("greeting").innerHTML = `Good ${getTimeGreeting(currentDateTime)}!`;
             document.getElementById("datetime").innerHTML = `It's ${getTimeString(currentDateTime)} on ${getDateString(currentDateTime)}`;
         }
@@ -129,8 +130,7 @@
             }
         }
 
-        var PageOnLoad = function () {
-            document.getElementsByTagName('body')[0].className = getTimeClass(new Date());
+        var PageOnLoad = function () {           
             event = parseQueryString();
             updateEvent(new Date());
             clockTicker = setInterval(function () {

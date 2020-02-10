@@ -33,10 +33,17 @@ function getDateString(datetime) {
 
 function getTimeParts(timeMillisecs) {
     return timeParts = {
-        days: Math.floor(timeMillisecs / MILLISECS_IN_DAY),
-        hours: Math.floor((timeMillisecs % MILLISECS_IN_DAY) / MILLISECS_IN_HOUR),
-        mins: Math.floor((timeMillisecs % MILLISECS_IN_HOUR) / MILLISECS_IN_MIN),
-        secs: Math.floor((timeMillisecs % MILLISECS_IN_MIN) / MILLISECS_IN_SEC)
+        days: timeMillisecs > 0 ? Math.floor(timeMillisecs / MILLISECS_IN_DAY) :
+                                  Math.ceil(timeMillisecs / MILLISECS_IN_DAY),
+
+        hours: timeMillisecs > 0 ? Math.floor((timeMillisecs % MILLISECS_IN_DAY) / MILLISECS_IN_HOUR):
+                                   Math.ceil((timeMillisecs % MILLISECS_IN_DAY) / MILLISECS_IN_HOUR),
+
+        mins: timeMillisecs > 0 ? Math.floor((timeMillisecs % MILLISECS_IN_HOUR) / MILLISECS_IN_MIN): 
+                                  Math.ceil((timeMillisecs % MILLISECS_IN_HOUR) / MILLISECS_IN_MIN),
+
+        secs: timeMillisecs > 0 ? Math.ceil((timeMillisecs % MILLISECS_IN_MIN) / MILLISECS_IN_SEC):
+                                  Math.ceil((timeMillisecs % MILLISECS_IN_MIN) / MILLISECS_IN_SEC)
     };
 }
 
