@@ -1,0 +1,155 @@
+﻿<!DOCTYPE HTML>
+<html lang="en-gb">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="shared/scripts/numbers.js" type="text/javascript"></script>
+    <title>💥 Emoji Fight! 💥</title>
+
+    <style>
+        .emoji {
+            font-size: 5em;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="header">
+            <h1 id="greeting"></h1>
+        </div>
+        <div class="flex-container">
+            <div id="option-one" class="emoji">
+
+            </div>
+            <div>
+                <p class="label">vs.</p>
+            </div>
+            <div id="option-two" class="emoji">
+
+            </div>
+        </div>
+        <div class="footer">
+            <h2 id="event"></h2>
+        </div>
+    </div>
+
+    <script>
+
+        var emojiList;
+        let score;
+        let lives;
+
+        let optionOne = document.getElementById("option-one");
+        let optionTwo = document.getElementById("option-two");
+
+        optionOne.onclick = nextRound;
+        optionTwo.onclick = nextRound;
+
+        function getEmojiData(url) {
+            return new Promise(function (resolve, reject) {
+                fetch(url)
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP response was ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then((jsonResponse) => {
+                        var emoji = [];
+                        for (i in jsonResponse) {
+                            emoji[i] = {
+                                id: jsonResponse[i].id,
+                                char: jsonResponse[i].char,
+                                score: jsonResponse[i].score,
+                                name: jsonResponse[i].name
+                            };
+                        }
+                        resolve(emoji);
+                    })
+                    .catch((error) => {
+                        reject(Error(`Something went wrong with the fetch operation :( - ${error}`));
+                    });
+            });
+        }
+
+        function newGame() {
+            score = 0;
+            lives = 3;
+
+            setNextEmoji();
+        }
+
+
+        function setNextEmoji() {
+            // make sure they have different scores
+            var emoji1 = getRandomEmoji();
+            var emoji2 = getRandomEmoji();
+            while (emoji1.score === emoji2.score) {
+                emoji2 = getRandomEmoji();
+            }
+            setElementEmoji(optionOne, emoji1);
+            setElementEmoji(optionTwo, emoji2);
+        }
+
+        function getRandomEmoji() {
+            return emojiList[getRandomIntExcl(0, emojiList.length)];
+        }
+
+        function setElementEmoji(element, emoji) {
+            element.setAttribute("data-id", emoji.id);
+            element.setAttribute("data-score", emoji.score);
+            element.setAttribute("data-name", emoji.name);
+            element.innerHTML = emoji.char;
+        }
+
+        function nextRound(event) {
+            var result = checkAnswer(event);
+
+            if (result === "win") {
+                score ++;
+            } else if (result === "lose") {
+                lives --;
+            }
+
+            console.log(result);
+            console.log(`score: ${score}, lives: ${lives}`);
+
+
+            if (lives > 0) {
+                setNextEmoji();
+            } else {
+                console.log("GAME OVER")
+            }
+
+            
+        }
+
+        function checkAnswer(event) {
+            var opt1Score = parseInt(optionOne.getAttribute("data-score"));
+            var opt2Score = parseInt(optionTwo.getAttribute("data-score"));
+
+            if (opt1Score > opt2Score) {
+                winnerId = optionOne.id;
+            } else if (opt1Score < opt2Score) {
+                winnerId = optionTwo.id;
+            }
+
+            return (event.target.id == winnerId) ? "win" : "lose"; 
+        }
+
+        getEmojiData('https://api.emojitracker.com/v1/rankings')
+            .then(function (response) {
+                emojiList = response;
+                newGame();
+            }, function (Error) {
+                console.log(Error);
+            });
+
+
+
+    </script>
+</body>
+
+</html>
