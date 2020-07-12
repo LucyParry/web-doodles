@@ -1,6 +1,5 @@
 ﻿<!DOCTYPE HTML>
 <html lang="en-gb">
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,44 +7,179 @@
     <title>💥 Emoji Fight! 💥</title>
 
     <style>
-        .emoji {
-            font-size: 5em;
+        html {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #FEAF10;
         }
+
+        .centred {
+            text-align: center;
+        }
+
+        .page-load-hidden {
+            display: none;
+        }
+
+        .scoring-item > div.score {
+            text-align: left;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+        }
+
+        .scoring-item > div#lives {
+            text-align: right;
+            font-size: 2em;
+        }
+
+        .flex-container {
+            max-width: 80%;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            margin: auto;
+        }
+
+            .flex-container > div.emoji-div {
+                min-width: 200px;
+                flex: 1 1 200px;
+            }
+
+            .flex-container > div.label-div {
+                min-width: 200px;
+                font-size: 2rem;
+                flex: 1 1 200px;
+            }
+
+            .flex-container > div.scoring-item {
+                flex: 1 1 auto;
+            }
+
+        /* Result message animation */
+        @keyframes fadein {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .mid-message-animate {
+            text-shadow: 0 0 30px #e60073;
+            -webkit-animation: fadein 1s ease-in alternate infinite;
+            -moz-animation: fadein 1s ease-in alternate infinite;
+            animation: fadein 1s ease-in alternate infinite;
+        }
+
+
+
+                .display-font {
+            font-weight: 800;
+        }
+
+        .padded {
+            padding: 20px;
+        }
+
+        .full-width-centred-section {
+            text-align: center;
+            margin: auto;
+        }
+
+        .intro-title {
+            font-size: 3rem;
+            margin: auto;
+        }
+
+        .game-title {
+            font-size: 1.5rem;
+            margin: auto;
+        }
+
+        .score-label {
+            min-width: 80px;
+        }
+
+        .emoji-div {
+            font-size: 8rem;
+        }
+
+         .emoji-info {
+             font-size: 2rem;
+         }
     </style>
 </head>
 
-<body>
-    <div>
-        <div class="header">
-            <h1 id="greeting"></h1>
-        </div>
-        <div class="flex-container">
-            <div id="option-one" class="emoji">
+<body onload="javascript:PageOnLoad();">
 
-            </div>
-            <div>
-                <p class="label">vs.</p>
-            </div>
-            <div id="option-two" class="emoji">
+    <div id="intro" class="full-width-centred-section">
+        <h1 id="game-title" class="display-font intro-title">EMOJI FIGHT!</h1>
+        <p>Which emoji is more popular on Twitter?</p>
+        <input type="button" id="btn-start-game" value="START">
+    </div>
 
+    <div id="main-game" class="page-load-hidden">
+        <div class="flex-container padded">
+            <h1 class="game-title display-font">EMOJI FIGHT!</h1>
+        </div>
+        <div class="flex-container display-font scoring padded">
+            <div class="scoring-item">
+                <div id="round-score-label" class="score">
+                    <div class="score-label">Score:</div>
+                    <span id="round-score-number"></span>
+                </div>
+                <div id="hi-score-label" class="score">
+                    <div class="score-label">Hi Score:</div>
+                    <span id="hi-score-number"></span>
+                </div>
+            </div>
+            <div class="scoring-item">
+                <div id="lives"></div>
             </div>
         </div>
-        <div class="footer">
-            <h2 id="event"></h2>
+        <div class="flex-container full-width-centred-section padded">
+            <div class="emoji-div centred">
+                <div id="option-one"></div>
+                <div id="option-one-info" class="display-font emoji-info"></div>
+            </div>
+            <div class="label-div centred">
+                <h1 id="mid-message">vs.</h1>
+            </div>
+            <div class="emoji-div centred">
+                <div id="option-two"></div>
+                <div id="option-two-info" class="display-font emoji-info"></div>
+            </div>
         </div>
+    </div>
+
+    <div id="new-game-footer" class="page-load-hidden full-width-centred-section">
+        <input type="button" id="btn-new-game" value="New game?">
     </div>
 
     <script>
 
-        var emojiList;
-        let score;
-        let lives;
+        let emojiList;
 
+        let livesElement = document.getElementById('lives');
         let optionOne = document.getElementById("option-one");
         let optionTwo = document.getElementById("option-two");
+        let optionOneInfo = document.getElementById("option-one-info");
+        let optionTwoInfo = document.getElementById("option-two-info");
 
-        optionOne.onclick = nextRound;
-        optionTwo.onclick = nextRound;
+        let game = {
+            score: 0,
+            hiScore: 0,
+            lives: 0,
+            gameOver: false
+        }
+
+        let round = {
+            option1Score: 0,
+            option2Score: 0,
+            resultMessage: ""
+        }
 
         function getEmojiData(url) {
             return new Promise(function (resolve, reject) {
@@ -74,20 +208,54 @@
             });
         }
 
-        function newGame() {
-            score = 0;
-            lives = 3;
+        function initialise() {
+            game.score = 0;
+            game.lives = 3;
+            game.gameOver = false;
+            round.resultMessage = "";
 
-            setNextEmoji();
+            game.hiScore = getHiScoreCookie();
+            let scoreElement = document.getElementById('hi-score-number');
+            scoreElement.innerHTML = game.hiScore;
         }
 
+        function newGame() {
+            initialise();
+            updateResultMessageDisplay("VS.", false);
+            getEmojiData('https://api.emojitracker.com/v1/rankings')
+                .then(function (response) {
+                    emojiList = response;
+                    document.getElementById("main-game").style.display = "block";
+                    updateScoresDisplay();
+                    setNextEmoji();
+                    document.getElementById("intro").style.display = "none";
+                }, function (Error) {
+                    console.log(Error); // todo
+                });
+        }
+
+        function toggleRoundScores(on) {
+            optionOneInfo.innerHTML = on ? round.option1Score : "";
+            optionTwoInfo.innerHTML = on ? round.option2Score : "";
+        }
+
+        function updateScoresDisplay() {
+            let scoreElement = document.getElementById('round-score-number');
+            scoreElement.innerHTML = game.score;
+            livesElement.innerHTML = getHearts(game.lives);
+        }
+
+        function updateResultMessageDisplay(strMessage, blnIsAnimated) {
+            let midMessage = document.getElementById("mid-message");
+            midMessage.innerHTML = strMessage;
+            midMessage.classList = blnIsAnimated ? "mid-message-animate" : ""
+        }
 
         function setNextEmoji() {
-            // make sure they have different scores
             var emoji1 = getRandomEmoji();
             var emoji2 = getRandomEmoji();
             while (emoji1.score === emoji2.score) {
-                emoji2 = getRandomEmoji();
+                emoji2 = getRandomEmoji(); // make sure the scores are always different
             }
             setElementEmoji(optionOne, emoji1);
             setElementEmoji(optionTwo, emoji2);
@@ -104,52 +272,84 @@
             element.innerHTML = emoji.char;
         }
 
-        function nextRound(event) {
-            var result = checkAnswer(event);
+        async function nextRound(event) {
+            if (!game.gameOver) {
+                checkAnswer(event);
+                updateScoresDisplay();
 
-            if (result === "win") {
-                score ++;
-            } else if (result === "lose") {
-                lives --;
+                if (game.lives > 0) {
+                    updateResultMessageDisplay(round.resultMessage, true);
+                    toggleRoundScores(true);
+                    await sleep(2000);
+                    updateResultMessageDisplay("VS.", false);
+                    toggleRoundScores(false);
+                    setNextEmoji();
+                }
+                else {
+                    doGameOver();
+                }
             }
-
-            console.log(result);
-            console.log(`score: ${score}, lives: ${lives}`);
-
-
-            if (lives > 0) {
-                setNextEmoji();
-            } else {
-                console.log("GAME OVER")
-            }
-
-            
         }
 
         function checkAnswer(event) {
-            var opt1Score = parseInt(optionOne.getAttribute("data-score"));
-            var opt2Score = parseInt(optionTwo.getAttribute("data-score"));
+            round.option1Score = parseInt(optionOne.getAttribute("data-score"));
+            round.option2Score = parseInt(optionTwo.getAttribute("data-score"));
 
-            if (opt1Score > opt2Score) {
+            if (round.option1Score > round.option2Score) {
                 winnerId = optionOne.id;
-            } else if (opt1Score < opt2Score) {
+            } else if (round.option1Score < round.option2Score) {
                 winnerId = optionTwo.id;
             }
 
-            return (event.target.id == winnerId) ? "win" : "lose"; 
+            if (event.target.id == winnerId) {
+                game.score++;
+                round.resultMessage = "CORRECT!"
+            } else {
+                game.lives--;
+                round.resultMessage = "OH NO!"
+            }
         }
 
-        getEmojiData('https://api.emojitracker.com/v1/rankings')
-            .then(function (response) {
-                emojiList = response;
-                newGame();
-            }, function (Error) {
-                console.log(Error);
-            });
+        function doGameOver() {
+            game.gameOver = true;
+            setHiScoreCookie();
 
 
+            updateResultMessageDisplay("GAME OVER", true);
+            document.getElementById("new-game-footer").style.display = "block";
+        }
+
+        function setHiScoreCookie() {
+            let storedHiScore = getHiScoreCookie();
+            if (storedHiScore === 0 || storedHiScore < game.score) {
+                localStorage.setItem('emojiFightHiScore', game.score);
+            }
+        }
+
+        function getHiScoreCookie() {
+            let storedHiScore = localStorage.getItem('emojiFightHiScore');
+            return storedHiScore === null ? 0 : storedHiScore;
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function getHearts(n) {
+            let heartString = "";
+            for (var i = 0; i < n; i++) {
+                heartString += "❤";
+            }
+            return heartString;
+        }
+
+        let PageOnLoad = function () {
+            document.getElementById('btn-start-game').onclick = newGame;
+            document.getElementById('btn-new-game').onclick = newGame;
+            document.getElementById("option-one").onclick = nextRound;
+            document.getElementById("option-two").onclick = nextRound;
+        }
 
     </script>
 </body>
-
 </html>
