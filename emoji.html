@@ -4,36 +4,94 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="shared/scripts/numbers.js" type="text/javascript"></script>
+    <script src="shared/scripts/utility.js" type="text/javascript"></script>
+    <link href="shared/styles/styles.css" rel="stylesheet">
     <title>💥 Emoji Fight! 💥</title>
 
     <style>
         html {
+            --main-bg-color: #ffffff;
+            --accent-colour1: #feaf10; 
+            --accent-colour2: #e65c00;
+            --shadow-colour: #878787;
+            /*--bg-svg-pattern: url("shared/dots.svg");*/
+
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #FEAF10;
+            background-color: var(--main-bg-color);
+            height: 100vh;
+            margin: 0;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-size: 14px;
+        }
+        .display-font {
+            font-weight: 800;
+        }
+        .button {
+            background-color: var(--accent-colour1);
+            box-shadow: 5px 5px 0 var(--shadow-colour);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+            .button:hover {
+                background-color: var(--accent-colour2);
+            }
+
+        .intro-title {
+            font-size: 4rem;
+            text-shadow: 5px 5px 0 var(--accent-colour1);
+            margin: auto;
+            padding-top: 20px;
+        }
+
+        .emoji-info {
+            font-size: 2rem;
+        }
+
+        #main-game {
+            background-color: rgba(255, 255, 255, 0.6);
+            border-color: var(--accent-colour1);
+            border-width: 10px;
+            border-style: solid;
+            margin: auto;
         }
 
         .centred {
             text-align: center;
         }
-
         .page-load-hidden {
             display: none;
         }
-
+        .scoring {
+            background-color: var(--accent-colour1);
+        }
+        .scoring-item {
+            width: 33%;
+        }
         .scoring-item > div.score {
             text-align: left;
             display: flex;
             flex-wrap: wrap;
             flex-direction: row;
         }
-
         .scoring-item > div#lives {
             text-align: right;
             font-size: 2em;
         }
-
         .flex-container {
-            max-width: 80%;
             display: flex;
             flex-wrap: wrap;
             flex-direction: row;
@@ -47,7 +105,6 @@
 
             .flex-container > div.label-div {
                 min-width: 200px;
-                font-size: 2rem;
                 flex: 1 1 200px;
             }
 
@@ -57,116 +114,136 @@
 
         /* Result message animation */
         @keyframes fadein {
-            0% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
+            0% {  opacity: 0; }
+            100% { opacity: 1; }
         }
-
         .mid-message-animate {
-            text-shadow: 0 0 30px #e60073;
+            text-shadow: 5px 5px 0 var(--accent-colour1);
             -webkit-animation: fadein 1s ease-in alternate infinite;
             -moz-animation: fadein 1s ease-in alternate infinite;
             animation: fadein 1s ease-in alternate infinite;
         }
-
-
-
-                .display-font {
-            font-weight: 800;
-        }
-
         .padded {
             padding: 20px;
         }
-
         .full-width-centred-section {
             text-align: center;
             margin: auto;
         }
-
-        .intro-title {
-            font-size: 3rem;
-            margin: auto;
-        }
-
         .game-title {
-            font-size: 1.5rem;
             margin: auto;
         }
-
         .score-label {
-            min-width: 80px;
+            min-width: 100px;
+        }
+        @media screen and (max-width: 500px) {
+            .game-title {
+                order: -1;
+                font-size: 3rem;
+                padding-bottom: 20px;
+                display: block;
+                width: 100%;
+                margin: auto;
+                text-align: center;
+            }
+            .emoji-div {
+                font-size: 5rem;
+                height: 18vh;
+            }
+            .main-page-body {
+                 position: relative;
+            }
+            #main-game {
+                max-width: 100%;
+                min-height: 95vh;
+                border-radius: 0;
+            }
+            .label-div {
+                font-size: 1.5rem;
+            }
         }
 
-        .emoji-div {
-            font-size: 8rem;
+        @media screen and (min-width: 501px) {
+            .game-title {
+                font-size: 2.25vw;
+                line-height: 2vw;
+            }
+            .emoji-div {
+                font-size: 8rem;
+            }
+            .main-page-body {
+                 position: relative;
+                 top: 30px;
+            }
+            #main-game {
+                max-width: 60vw;
+                min-height: 80vh;
+                margin-top: 20px;
+                border-radius: 4px;
+                box-shadow: 10px 10px var(--shadow-colour);
+            }
+            .label-div {
+                font-size: 2rem;
+            }
         }
 
-         .emoji-info {
-             font-size: 2rem;
-         }
     </style>
 </head>
 
 <body onload="javascript:PageOnLoad();">
-
-    <div id="intro" class="full-width-centred-section">
-        <h1 id="game-title" class="display-font intro-title">EMOJI FIGHT!</h1>
-        <p>Which emoji is more popular on Twitter?</p>
-        <input type="button" id="btn-start-game" value="START">
+    ​<div class="ubiquitous-dark-topnav">
+        <a href="#">Home</a>
     </div>
-
-    <div id="main-game" class="page-load-hidden">
-        <div class="flex-container padded">
-            <h1 class="game-title display-font">EMOJI FIGHT!</h1>
-        </div>
-        <div class="flex-container display-font scoring padded">
-            <div class="scoring-item">
-                <div id="round-score-label" class="score">
-                    <div class="score-label">Score:</div>
-                    <span id="round-score-number"></span>
-                </div>
-                <div id="hi-score-label" class="score">
-                    <div class="score-label">Hi Score:</div>
-                    <span id="hi-score-number"></span>
-                </div>
-            </div>
-            <div class="scoring-item">
-                <div id="lives"></div>
-            </div>
-        </div>
-        <div class="flex-container full-width-centred-section padded">
-            <div class="emoji-div centred">
-                <div id="option-one"></div>
-                <div id="option-one-info" class="display-font emoji-info"></div>
-            </div>
-            <div class="label-div centred">
-                <h1 id="mid-message">vs.</h1>
-            </div>
-            <div class="emoji-div centred">
-                <div id="option-two"></div>
-                <div id="option-two-info" class="display-font emoji-info"></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="new-game-footer" class="page-load-hidden full-width-centred-section">
-        <input type="button" id="btn-new-game" value="New game?">
-    </div>
+    <div class="main-page-body">
+         <div id="intro" class="full-width-centred-section">
+             <h1 class="display-font intro-title">EMOJI FIGHT!</h1>
+             <p>Which emoji is more popular on Twitter?</p>
+             <input type="button" class="button display-font" id="btn-start-game" value="START">
+         </div>
+         <div id="main-game" class="page-load-hidden">
+             <div class="flex-container display-font scoring padded">
+                 <div class="scoring-item">
+                     <div id="round-score-label" class="score">
+                         <div class="score-label">SCORE:</div>
+                         <span id="round-score-number"></span>
+                     </div>
+                     <div id="hi-score-label" class="score">
+                         <div class="score-label">HI SCORE:</div>
+                         <span id="hi-score-number"></span>
+                     </div>
+                 </div>
+                 <h1 class="game-title display-font">EMOJI FIGHT!</h1>
+                 <div class="scoring-item">
+                     <div id="lives"></div>
+                 </div>
+             </div>
+             <div class="flex-container full-width-centred-section padded">
+                 <div class="emoji-div centred">
+                     <div id="option-one"></div>
+                     <div id="option-one-info" class="display-font emoji-info"></div>
+                 </div>
+                 <div class="label-div centred">
+                     <h1 id="mid-message">vs.</h1>
+                 </div>
+                 <div class="emoji-div centred">
+                     <div id="option-two"></div>
+                     <div id="option-two-info" class="display-font emoji-info"></div>
+                 </div>
+             </div>
+             <div id="new-game-footer" class="page-load-hidden full-width-centred-section">
+                 <input type="button" class="button display-font" id="btn-new-game" value="New game?">
+             </div>
+         </div>
+     </div>
 
     <script>
 
         let emojiList;
-
-        let livesElement = document.getElementById('lives');
-        let optionOne = document.getElementById("option-one");
-        let optionTwo = document.getElementById("option-two");
-        let optionOneInfo = document.getElementById("option-one-info");
-        let optionTwoInfo = document.getElementById("option-two-info");
+        let livesElement = $('#lives');
+        let optionOne = $("#option-one");
+        let optionTwo = $("#option-two");
+        let optionOneInfo = $("#option-one-info");
+        let optionTwoInfo = $("#option-two-info");
 
         let game = {
             score: 0,
@@ -214,8 +291,10 @@
             game.gameOver = false;
             round.resultMessage = "";
 
+            $("#new-game-footer").style.display = "none";
+
             game.hiScore = getHiScoreCookie();
-            let scoreElement = document.getElementById('hi-score-number');
+            let scoreElement = $('#hi-score-number');
             scoreElement.innerHTML = game.hiScore;
         }
 
@@ -225,12 +304,12 @@
             getEmojiData('https://api.emojitracker.com/v1/rankings')
                 .then(function (response) {
                     emojiList = response;
-                    document.getElementById("main-game").style.display = "block";
+                    $("#main-game").style.display = "block";
                     updateScoresDisplay();
                     setNextEmoji();
-                    document.getElementById("intro").style.display = "none";
+                    $("#intro").style.display = "none";
                 }, function (Error) {
-                    console.log(Error); // todo
+                    alert(Error); // todo 
                 });
         }
 
@@ -240,13 +319,13 @@
         }
 
         function updateScoresDisplay() {
-            let scoreElement = document.getElementById('round-score-number');
+            let scoreElement = $('#round-score-number');
             scoreElement.innerHTML = game.score;
             livesElement.innerHTML = getHearts(game.lives);
         }
 
         function updateResultMessageDisplay(strMessage, blnIsAnimated) {
-            let midMessage = document.getElementById("mid-message");
+            let midMessage = $("#mid-message");
             midMessage.innerHTML = strMessage;
             midMessage.classList = blnIsAnimated ? "mid-message-animate" : ""
         }
@@ -300,7 +379,6 @@
             } else if (round.option1Score < round.option2Score) {
                 winnerId = optionTwo.id;
             }
-
             if (event.target.id == winnerId) {
                 game.score++;
                 round.resultMessage = "CORRECT!"
@@ -313,10 +391,8 @@
         function doGameOver() {
             game.gameOver = true;
             setHiScoreCookie();
-
-
             updateResultMessageDisplay("GAME OVER", true);
-            document.getElementById("new-game-footer").style.display = "block";
+            $("#new-game-footer").style.display = "block";
         }
 
         function setHiScoreCookie() {
@@ -344,10 +420,10 @@
         }
 
         let PageOnLoad = function () {
-            document.getElementById('btn-start-game').onclick = newGame;
-            document.getElementById('btn-new-game').onclick = newGame;
-            document.getElementById("option-one").onclick = nextRound;
-            document.getElementById("option-two").onclick = nextRound;
+            $('#btn-start-game').onclick = newGame;
+            $('#btn-new-game').onclick = newGame;
+            $("#option-one").onclick = nextRound;
+            $("#option-two").onclick = nextRound;
         }
 
     </script>
