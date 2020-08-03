@@ -1,0 +1,76 @@
+﻿<!DOCTYPE HTML>
+<html lang="en-gb">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="shared/styles/styles.css" rel="stylesheet">
+    <title></title>
+
+    <style>
+
+        /* https://github.com/propjockey/css-sweeper
+           Space Toggles can be combined for AND logic: --red-if-togglersalltrue: var(--tog1) var(--tog2) var(--tog3) red;
+           Space Toggles can be combined for OR logic: --red-if-anytogglertrue: var(--tog1, var(--tog2, var(--tog3))) red;
+        */
+
+        #container {
+            --a-on: ; /* 'true' */
+            --b-on: ;
+            display: -webkit-flex; /* Safari */
+            display: flex;
+        }
+
+        #boxA:checked ~ #boxBlabel:before {
+            --a-on: initial; /* 'false' */
+            --b-on: ;
+            --pink-if-b-on: var(--b-on) hotpink;
+            background-color: var(--pink-if-b-on, grey);
+        }
+
+        #boxB:checked ~ #boxAlabel:before {
+            --b-on: initial; /* 'false' */
+            --a-on: ;
+            --pink-if-a-on: var(--a-on) hotpink;
+            background-color: var(--pink-if-a-on, grey);
+        }
+
+        /*input {
+            display: none;
+        }*/
+
+        /* CUSTOM SQUARE */
+        .box::before {
+            display: inline-block;
+            content: "\00a0"; /* Blank space */
+            width: 50px;
+            height: 50px;
+            margin: 2px;
+            background: #f2f2f2;
+        }
+
+        .box {
+            cursor: pointer;
+        }
+
+            .box:hover::before {
+                background: #ddd;
+            }
+    </style>
+</head>
+
+<body>
+
+    <div id="container" class="grid-container">
+
+        <input type="checkbox" id="boxA" />
+        <input type="checkbox" id="boxB" />
+        <input type="checkbox" id="boxC" />
+
+        <label for="boxA" class="box" id="boxAlabel"></label>
+        <label for="boxB" class="box" id="boxBlabel"></label>
+        <label for="boxC" class="box" id="boxClabel"></label>
+
+    </div>
+
+</body>
+</html>

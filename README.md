@@ -1,5 +1,5 @@
-# LucyParry.github.io
 
-Lucy's GitHub Pages repo, with too many good intentions and not enough time (for now).
+A few things I've always liked -
 
-OU Friends: Here's the [TM470 Countdown](https://lucyparry.github.io/deadlines/) !
+* The strange and wonderful 90s web of my early teens.
+* In an ever more complex JavaScript universe, simple sites with 

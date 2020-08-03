@@ -1,37 +1,30 @@
-body { text-align: center; }
-p { font-size: smaller; }
-a { color: lightgray !important; }
-
-h2 {
-    font-size: 0.75em;
-    font-weight: 600 !important;
+:root {
+    --sortofblack: #333;
 }
 
-.col-lg-3 { padding: 2px; }
-.card-title-date { padding-bottom: 1em; }
-.time-label { font-size: 0.8em; }
-.time-number { font-size: 1.5em; }
-
-.jumbotron {
-    margin-bottom: 0;
-    color: rgb(255, 255, 255);
-    background: #48c6ef;
-    background: -webkit-linear-gradient(to right, #48c6ef, #6f86d6);
-    background: linear-gradient(to right, #48c6ef, #6f86d6);
-    /*background: #d200b8;
-    background: -webkit-linear-gradient(to right, #d200b8, #ffbc36);
-    background: linear-gradient(to right, #d200b8, #ffbc36);*/
+.ubiquitous-dark-topnav {
+    overflow: hidden;
+    background-color: var(--sortofblack);
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    z-index: 999;
+    width: 100%;
+    height: 5vh;
 }
 
-.card-body {
-    font-weight: 600;
-    padding: 1rem;
-}
+    .ubiquitous-dark-topnav a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 10px 10px;
+        text-decoration: none;
+    }
 
-#wisdom-add {
-    padding-top: 10px;
-}
-
-#wisdom-text {
-    font-style: italic;
-}
+        .ubiquitous-dark-topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
