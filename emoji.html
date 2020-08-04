@@ -10,25 +10,26 @@
     <style>
         html {
             --main-bg-color: #ffffff;
-            --accent-colour1: #feaf10; 
+            --accent-colour1: #feaf10;
             --accent-colour2: #e65c00;
             --shadow-colour: #878787;
             /*--bg-svg-pattern: url("shared/dots.svg");*/
-
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--main-bg-color);
-            height: 100vh;
             margin: 0;
         }
+
         body {
             margin: 0;
             padding: 0;
             overflow: hidden;
-            font-size: 14px;
+            top: 40px;
         }
+
         .display-font {
             font-weight: 800;
         }
+
         .button {
             background-color: var(--accent-colour1);
             box-shadow: 5px 5px 0 var(--shadow-colour);
@@ -56,8 +57,11 @@
             padding-top: 20px;
         }
 
-        .emoji-info {
-            font-size: 2rem;
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            margin: auto;
         }
 
         #main-game {
@@ -68,124 +72,156 @@
             margin: auto;
         }
 
-        .centred {
-            text-align: center;
-        }
-        .page-load-hidden {
-            display: none;
-        }
-        .scoring {
-            background-color: var(--accent-colour1);
-        }
-        .scoring-item {
-            width: 33%;
-        }
-        .scoring-item > div.score {
-            text-align: left;
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: row;
-        }
-        .scoring-item > div#lives {
-            text-align: right;
-            font-size: 2em;
-        }
-        .flex-container {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: row;
-            margin: auto;
-        }
-
-            .flex-container > div.emoji-div {
-                min-width: 200px;
-                flex: 1 1 200px;
-            }
-
-            .flex-container > div.label-div {
-                min-width: 200px;
-                flex: 1 1 200px;
-            }
-
-            .flex-container > div.scoring-item {
-                flex: 1 1 auto;
-            }
-
         /* Result message animation */
         @keyframes fadein {
-            0% {  opacity: 0; }
-            100% { opacity: 1; }
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
+
         .mid-message-animate {
             text-shadow: 5px 5px 0 var(--accent-colour1);
             -webkit-animation: fadein 1s ease-in alternate infinite;
             -moz-animation: fadein 1s ease-in alternate infinite;
             animation: fadein 1s ease-in alternate infinite;
         }
-        .padded {
-            padding: 20px;
+
+        .centred {
+            text-align: center;
         }
+
+        .page-load-hidden {
+            display: none;
+        }
+
+        .scoring {
+            background-color: var(--accent-colour1);
+        }
+
+        .score-label {
+            min-width: 100px;
+        }
+
         .full-width-centred-section {
             text-align: center;
             margin: auto;
         }
-        .game-title {
-            margin: auto;
+
+        .scoring-item {
+            width: 30%;
         }
-        .score-label {
-            min-width: 100px;
-        }
-        @media screen and (max-width: 500px) {
+
+            .scoring-item > div.score {
+                text-align: left;
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: row;
+            }
+
+            .scoring-item > div#lives {
+                text-align: right;
+                font-size: 2em;
+            }
+
+        @media screen and (max-width: 600px) {
             .game-title {
+                margin: auto;
                 order: -1;
-                font-size: 3rem;
-                padding-bottom: 20px;
+                font-size: 2rem;
+                padding-bottom: 10px;
                 display: block;
                 width: 100%;
                 margin: auto;
                 text-align: center;
             }
+
             .emoji-div {
                 font-size: 5rem;
                 height: 18vh;
             }
+
             .main-page-body {
-                 position: relative;
+                position: relative;
             }
+
             #main-game {
                 max-width: 100%;
-                min-height: 95vh;
+                height: calc(100vh - 40px);
                 border-radius: 0;
             }
+
             .label-div {
                 font-size: 1.5rem;
             }
+
+            .emoji-info {
+                font-size: 2rem;
+            }
+
+            .padded {
+                padding: 10px;
+            }
+
+            .flex-container > div.emoji-div,
+            .flex-container > div.label-div
+            {
+                min-width: 200px;
+                flex: 1 1 auto;
+            }
+
+            .flex-container > div.scoring-item {
+                flex: 1 1 auto;
+            }
         }
 
-        @media screen and (min-width: 501px) {
+        @media screen and (min-width: 601px) {
+
+            .flex-container > div.emoji-div,
+            .flex-container > div.label-div,
+            .flex-container > div.scoring-item {
+                min-width: 201px;
+                flex: 1 1 200px;
+            }
+
             .game-title {
                 font-size: 2.25vw;
                 line-height: 2vw;
+                margin: auto;
             }
+
             .emoji-div {
                 font-size: 8rem;
             }
+
             .main-page-body {
-                 position: relative;
-                 top: 30px;
+                position: relative;
+                top: 30px;
             }
+
             #main-game {
-                max-width: 60vw;
+                max-width: 75vw;
                 min-height: 80vh;
                 margin-top: 20px;
                 border-radius: 4px;
                 box-shadow: 10px 10px var(--shadow-colour);
             }
+
             .label-div {
                 font-size: 2rem;
             }
-        }
 
+            .emoji-info {
+                font-size: 2rem;
+            }
+
+            .padded {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 
@@ -194,46 +230,46 @@
         <a href="#">Home</a>
     </div>
     <div class="main-page-body">
-         <div id="intro" class="full-width-centred-section">
-             <h1 class="display-font intro-title">EMOJI FIGHT!</h1>
-             <p>Which emoji is more popular on Twitter?</p>
-             <input type="button" class="button display-font" id="btn-start-game" value="START">
-         </div>
-         <div id="main-game" class="page-load-hidden">
-             <div class="flex-container display-font scoring padded">
-                 <div class="scoring-item">
-                     <div id="round-score-label" class="score">
-                         <div class="score-label">SCORE:</div>
-                         <span id="round-score-number"></span>
-                     </div>
-                     <div id="hi-score-label" class="score">
-                         <div class="score-label">HI SCORE:</div>
-                         <span id="hi-score-number"></span>
-                     </div>
-                 </div>
-                 <h1 class="game-title display-font">EMOJI FIGHT!</h1>
-                 <div class="scoring-item">
-                     <div id="lives"></div>
-                 </div>
-             </div>
-             <div class="flex-container full-width-centred-section padded">
-                 <div class="emoji-div centred">
-                     <div id="option-one"></div>
-                     <div id="option-one-info" class="display-font emoji-info"></div>
-                 </div>
-                 <div class="label-div centred">
-                     <h1 id="mid-message">vs.</h1>
-                 </div>
-                 <div class="emoji-div centred">
-                     <div id="option-two"></div>
-                     <div id="option-two-info" class="display-font emoji-info"></div>
-                 </div>
-             </div>
-             <div id="new-game-footer" class="page-load-hidden full-width-centred-section">
-                 <input type="button" class="button display-font" id="btn-new-game" value="New game?">
-             </div>
-         </div>
-     </div>
+        <div id="intro" class="full-width-centred-section">
+            <h1 class="display-font intro-title">EMOJI FIGHT!</h1>
+            <p>Which emoji is more popular on Twitter?</p>
+            <input type="button" class="button display-font" id="btn-start-game" value="START">
+        </div>
+        <div id="main-game" class="page-load-hidden">
+            <div class="flex-container display-font scoring padded">
+                <div class="scoring-item">
+                    <div id="round-score-label" class="score">
+                        <div class="score-label">SCORE:</div>
+                        <span id="round-score-number"></span>
+                    </div>
+                    <div id="hi-score-label" class="score">
+                        <div class="score-label">HI SCORE:</div>
+                        <span id="hi-score-number"></span>
+                    </div>
+                </div>
+                <h1 class="game-title display-font">EMOJI FIGHT!</h1>
+                <div class="scoring-item">
+                    <div id="lives"></div>
+                </div>
+            </div>
+            <div class="flex-container full-width-centred-section padded">
+                <div class="emoji-div centred">
+                    <div id="option-one"></div>
+                    <div id="option-one-info" class="display-font emoji-info"></div>
+                </div>
+                <div class="label-div centred">
+                    <h1 id="mid-message">vs.</h1>
+                </div>
+                <div class="emoji-div centred">
+                    <div id="option-two"></div>
+                    <div id="option-two-info" class="display-font emoji-info"></div>
+                </div>
+            </div>
+            <div id="new-game-footer" class="page-load-hidden full-width-centred-section">
+                <input type="button" class="button display-font" id="btn-new-game" value="New game?">
+            </div>
+        </div>
+    </div>
 
     <script>
 
@@ -308,7 +344,7 @@
                     setNextEmoji();
                     $("#intro").style.display = "none";
                 }, function (Error) {
-                    alert(Error); // todo 
+                    alert(Error); // todo
                 });
         }
 
@@ -326,7 +362,11 @@
         function updateResultMessageDisplay(strMessage, blnIsAnimated) {
             let midMessage = $("#mid-message");
             midMessage.innerHTML = strMessage;
-            midMessage.classList = blnIsAnimated ? "mid-message-animate" : ""
+            if (blnIsAnimated) {
+                midMessage.classList.add("mid-message-animate")
+            } else {
+                midMessage.classList.remove("mid-message-animate")
+            }
         }
 
         function setNextEmoji() {
