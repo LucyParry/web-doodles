@@ -1,4 +1,4 @@
-// GENERAL
+﻿// GENERAL
 
 // This idea nicked from the great Julia Evans from https://questions.wizardzines.com/
 function $(selector) {
@@ -22,4 +22,16 @@ function getRandomIntExcl(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function getNCharString(n, char) {
+    let charString = "";
+    for (var i = 0; i < n; i++) {
+        charString += char;
+    }
+    return charString;
 }
