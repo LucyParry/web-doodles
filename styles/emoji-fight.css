@@ -26,11 +26,11 @@ body {
     box-shadow: 5px 5px 0 var(--shadow-colour);
     border: none;
     border-radius: 5px;
-    padding: 12px 12px;
+    padding: 14px 18px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 14px;
+    font-size: 16px;
     margin: 4px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
@@ -130,7 +130,6 @@ body {
         padding-bottom: 10px;
         display: block;
         width: 100%;
-        margin: auto;
         text-align: center;
     }
     .emoji-div {
@@ -152,27 +151,36 @@ body {
         border-radius: 0;
     }
     #mid-message {
-        font-size: 7vh;
+        font-size: 6vh;
     }
 }
 
-
 @media screen and (min-width: 601px) {
     .flex-container > div.emoji-div,
-    .flex-container > div.label-div,
-    .flex-container > div.scoring-item {
-        min-width: 201px;
-        flex: 1 1 200px;
+    .flex-container > div.label-div {
+        min-width: 200px;
+        flex: 1 1 201px;
     }
-
+    .flex-container > div.scoring-item {
+        flex: 1 1 auto;
+    }
     .main-page-body {
         position: relative;
         top: var(--top-offset);
     }
+    .game-title {
+        margin: auto;
+    }
+    .scoring {
+        padding: 10px 10px 20px 10px;
+        margin-bottom: 10px;
+    }
+    .label-div {
+        margin: auto;
+    }
 }
 
 @media screen and (min-width: 601px) and (max-width: 992px) {
-
     #main-game {
         max-width: 85vw;
         min-height: 85vh;
@@ -180,15 +188,40 @@ body {
         border-radius: 4px;
         box-shadow: 10px 10px var(--shadow-colour);
     }
+    .game-title {
+        font-size: 4vw;
+        line-height: 3.75vw;
+    }
+    .emoji-div {
+        font-size: 8rem;
+    }
+    .emoji-info {
+        font-size: 1.5rem;
+    }
+    .label-div {
+        font-size: 2rem;
+    }
 }
 
 @media screen and (min-width: 993px) {
-
     #main-game {
-        max-width: 75vw;
+        max-width: 80vw;
         min-height: 80vh;
         margin-top: 20px;
         border-radius: 4px;
         box-shadow: 10px 10px var(--shadow-colour);
+    }
+    .game-title {
+        font-size: 3vw;
+        line-height: 2.75vw;
+    }
+    .emoji-div {
+        font-size: 10rem;
+    }
+    .emoji-info {
+        font-size: 2rem;
+    }
+    .label-div {
+        font-size: 3rem;
     }
 }
