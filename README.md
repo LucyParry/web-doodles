@@ -1,5 +1,5 @@
-﻿# 💻 _n_ silly little websites 
-A collection of strange little projects, the result of my fondness for - 
+# 💻 web doodles 
+A mixed bag of tiny web projects, the result of my fondness for - 
 
 * The weird and wonderful 90s web of my early teens.
 * Learning with lots of little projects like <a href="https://jenniferdewalt.com/">Jennifer Dewalt's 180 websites in 180 days</a> or <a href="https://www.100daysofcode.com/">100 Days of Code</a>.
