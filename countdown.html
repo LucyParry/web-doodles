@@ -49,8 +49,8 @@
         }
 
         .night {
-            background: rgb(15,1,43) fixed;
-            background: linear-gradient(to bottom, rgba(15,1,43,1) 0%, rgba(87,31,90,0.25) 80%, rgba(222,211,165,1) 100%) fixed;
+            background: rgb(2,0,36) fixed;
+            background: linear-gradient(to bottom, rgba(2,0,36,1) 13%, rgba(39,0,117,1) 100%);
         }
 
         .flex-container {
@@ -60,11 +60,92 @@
         }
 
             .flex-container > div {
-                background-color: rgba(0, 0, 0, 0.1);
+                background-color: rgba(0, 0, 0, 0.2);
                 min-width: 130px;
                 margin: 5px;
                 padding: 15px 5px 15px 5px;
             }
+
+
+
+
+
+
+
+        @keyframes twinkle_one {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.25;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes twinkle_two {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes twinkle_three {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+
+        .star {
+            position: absolute;
+            background-color: white;
+        }
+
+        .star-type1 {
+            width: 1px;
+            height: 1px;
+            border-radius: 3px;
+            box-shadow: 0 0 1px 1px white;
+            animation: twinkle_one 3s ease-in-out infinite;
+        }
+
+        .star-type2 {
+            width: 2px;
+            height: 2px;
+            border-radius: 2px;
+            box-shadow: 0 0 2px 1px white;
+            animation: twinkle_two 11s ease-in-out infinite;
+        }
+
+        .star-type3 {
+            width: 2px;
+            height: 2px;
+            border-radius: 1px;
+            box-shadow: 0 0 2px 0 white;
+            animation: twinkle_three 7s ease-in-out infinite;
+        }
+
+
+
     </style>
 </head>
 
@@ -110,6 +191,7 @@
             });
             event = {
                 name: decodeURIComponent(qVars['e']),
+                theme: decodeURIComponent(qVars['t']),
                 dateTime: Date.parse(`${qVars['yy']}-${qVars['mm']}-${qVars['dd']}T${qVars['hh']}:${qVars['nn']}:${qVars['ss']}`)
             };
             return event;
@@ -117,8 +199,8 @@
 
         function updateNow(currentDateTime) {
             document.getElementsByTagName('body')[0].className = getTimeClass(new Date());
-            document.getElementById("greeting").innerHTML = `Good ${getTimeGreeting(currentDateTime)}!`;
-            document.getElementById("datetime").innerHTML = `It's ${getTimeString(currentDateTime)} on ${getDateString(currentDateTime)}`;
+            $("#greeting").innerHTML = `Good ${getTimeGreeting(currentDateTime)},`;
+            $("#datetime").innerHTML = `It's ${getTimeString(currentDateTime)} on ${getDateString(currentDateTime)}`;
         }
 
         function updateEvent(now) {
@@ -126,16 +208,30 @@
             msToTarget = event.dateTime - now.getTime();
             var timeParts = getTimeParts(msToTarget);
             if (!isNaN(event.dateTime)) {
-                document.getElementById("days").innerHTML = timeParts.days > 0 ? timeParts.days : timeParts.days * -1;
-                document.getElementById("hours").innerHTML = timeParts.hours > 0 ? timeParts.hours : timeParts.hours * -1;
-                document.getElementById("mins").innerHTML = timeParts.mins > 0 ? timeParts.mins : timeParts.mins * -1;
-                document.getElementById("secs").innerHTML = timeParts.secs > 0 ? timeParts.secs : timeParts.secs * -1;
-                document.getElementById("event").innerHTML = msToTarget > 0 ? `until ${event.name}` : `since ${event.name}`;
+                $("#days").innerHTML = timeParts.days > 0 ? timeParts.days : timeParts.days * -1;
+                $("#hours").innerHTML = timeParts.hours > 0 ? timeParts.hours : timeParts.hours * -1;
+                $("#mins").innerHTML = timeParts.mins > 0 ? timeParts.mins : timeParts.mins * -1;
+                $("#secs").innerHTML = timeParts.secs > 0 ? timeParts.secs : timeParts.secs * -1;
+                $("#event").innerHTML = msToTarget > 0 ? `until ${event.name}` : `since ${event.name}`;
             }
+        }
+
+        function setTheme(theme) {
+            var className = "";
+            switch (theme) {
+                case "x":
+                    // code block
+                    break;
+                default:
+                    generateStars($("html"), 100);
+                    getTimeClass(new Date());
+            }
+            $('body').className = className;
         }
 
         var PageOnLoad = function () {           
             event = parseQueryString();
+            setTheme(event.theme);
             updateEvent(new Date());
             clockTicker = setInterval(function () {
                 updateEvent(new Date());

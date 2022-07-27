@@ -35,3 +35,26 @@ function getNCharString(n, char) {
     }
     return charString;
 }
+
+
+
+function generateStars(element, starCount) {
+
+    for (var i = 0; i <= starCount; i++) {
+        var xposition = Math.random();
+        var yposition = Math.random();
+        var star_type = Math.floor((Math.random() * 3) + 1);
+        var position = {
+            "x": element.offsetWidth * xposition,
+            "y": element.offsetHeight * yposition,
+        };
+
+        var star = document.createElement('div');
+        star.classList.add("star");
+        star.classList.add(`star-type${star_type}`);
+        star.style.top = `${position.y}px`;
+        star.style.left = `${position.x}px`;
+
+        element.appendChild(star);
+    }
+};
