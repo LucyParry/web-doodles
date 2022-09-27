@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="styles/fancy-backgrounds.css" rel="stylesheet">
     <script src="scripts/time.js" type="text/javascript"></script>
     <script src="scripts/utility.js" type="text/javascript"></script>
     <title>Tiny Countdown</title>
@@ -36,21 +37,6 @@
             font-weight: bold;
             font-size: 1em;
             margin: unset;
-        }
-
-        .morning {
-            background: rgb(10,102,211) fixed;
-            background: linear-gradient(to bottom, rgba(10,102,211,1) 0%, rgba(150,150,150,0.50) 66%, rgba(255,252,85,1) 100%) fixed;
-        }
-
-        .afternoon {
-            background: rgb(78,140,213) fixed;
-            background: linear-gradient(to bottom, rgba(78,140,213,1) 0%, rgba(255,111,109,0.25) 66%, rgba(255,183,65,1) 100%) fixed;
-        }
-
-        .night {
-            background: rgb(2,0,36) fixed;
-            background: linear-gradient(to bottom, rgba(2,0,36,1) 13%, rgba(39,0,117,1) 100%);
         }
 
         .flex-container {
@@ -118,7 +104,7 @@
         .star-type1 {
             width: 1px;
             height: 1px;
-            border-radius: 3px;
+            border-radius: 2px;
             box-shadow: 0 0 1px 1px white;
             animation: twinkle_one 3s ease-in-out infinite;
         }
@@ -139,8 +125,31 @@
             animation: twinkle_three 7s ease-in-out infinite;
         }
 
+        .time-component {
+            border-radius: 5px;
+        }
 
+        @keyframes event-occurring-keyframes {
+            0% {
+                opacity: 0;
+                box-shadow: 0 0 0 white;
+            }
 
+            50% {
+                opacity: 100;
+                box-shadow: 0 0 100px white;
+            }
+
+            100% {
+                opacity: 0;
+                box-shadow: 0 0 0 white;
+            }
+        }
+
+        .event-occurring {
+            opacity: 0;
+            animation: event-occurring-keyframes 5s ease-in-out;
+        }
     </style>
 </head>
 
@@ -151,19 +160,19 @@
             <h2 id="datetime"></h2>
         </div>
         <div class="flex-container">
-            <div>
+            <div class="time-component">
                 <p id="days" class="time-number"></p>
                 <p class="label">Days</p>
             </div>
-            <div>
+            <div class="time-component">
                 <p id="hours" class="time-number"></p>
                 <p class="label">Hours</p>
             </div>
-            <div>
+            <div class="time-component">
                 <p id="mins" class="time-number"></p>
                 <p class="label">Mins</p>
             </div>
-            <div>
+            <div class="time-component">
                 <p id="secs" class="time-number"></p>
                 <p class="label">Secs</p>
             </div>
@@ -175,7 +184,8 @@
     
     <script>
 
-        var event;
+        let event;
+        let eventHappening;
 
         function parseQueryString() {
             var qVars = {};
@@ -203,28 +213,47 @@
             msToTarget = event.dateTime - now.getTime();
             if (!isNaN(event.dateTime)) {
                 var timeParts = getTimeParts(msToTarget);
-                var wording = msToTarget > 0 ? "until" : "since";
-
-                $("#days").innerHTML = timeParts.days;
-                $("#hours").innerHTML = timeParts.hours;
-                $("#mins").innerHTML = timeParts.mins;
-                $("#secs").innerHTML = timeParts.secs;
-                $("#event").innerHTML = `${wording} ${event.name}`;
-
+                if (timeParts.days == 0 && timeParts.hours == 0 && timeParts.mins == 0 && timeParts.secs == 0) {
+                    eventHappening = true;
+                    var timeNumbers = $$(".time-component")
+                    timeNumbers.forEach(function (element) {
+                        element.classList.add("event-occurring");
+                        setCountdownDisplay(0, 0, 0, 0, "it's time for", `${event.name}!`);
+                    });
+                    setTimeout(function () {
+                        timeNumbers.forEach(function (element) {
+                            element.classList.remove("event-occurring");
+                            eventHappening = false;
+                        });
+                    }, 5000);
+                }
+                else {
+                    if (!eventHappening) {
+                        var wording = msToTarget > 0 ? "until" : "since";
+                        setCountdownDisplay(timeParts.days, timeParts.hours, timeParts.mins, timeParts.secs, wording, event.name);
+                    }
+                }
             }
         }
 
+        function setCountdownDisplay(days, hours, mins, secs, wording, event) {
+            $("#days").innerHTML = days;
+            $("#hours").innerHTML = hours;
+            $("#mins").innerHTML = mins;
+            $("#secs").innerHTML = secs;
+            $("#event").innerHTML = `${wording} ${event}`;
+        }
+
         function setTheme(theme) {
-            var className = "";
             switch (theme) {
                 case "x":
-                    // code block
                     break;
                 default:
-                    generateStars($("html"), 100);
-                    getTimeClass(new Date());
+                    let className = getTimeClass(new Date());
+                    if (className = "night") {
+                        generateStars($("html"), 100);
+                    }
             }
-            $('body').className = className;
         }
 
         var PageOnLoad = function () {           

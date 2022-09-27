@@ -1,0 +1,28 @@
+:root {
+    --vignette: radial-gradient(circle at center, transparent 0%, rgb(0, 0, 0) 80%);
+}
+
+.morning {
+    background: rgb(10,102,211) fixed;
+    background: radial-gradient(circle at 30% 140%, rgb(232, 231, 211) 5%, rgb(254, 255, 135) 10%, rgb(255, 238, 46) 20%, transparent 50%), 
+                linear-gradient(180deg, rgba(0,124,217,1) 25%, rgba(184,226,255,1) 75%, transparent 100%);
+}
+
+.afternoon {
+    background: rgb(78,140,213) fixed;
+    background: linear-gradient(to bottom, rgba(78,140,213,1) 0%, rgba(255,111,109,0.25) 65%, rgba(255,183,65,0.5) 80%, rgba(245, 127, 0, 1) 100%) fixed;
+}
+
+.night {
+    background: rgb(2,0,36) fixed;
+    background: radial-gradient(circle at center, transparent 50%, rgb(0, 0, 0) 99%),
+                linear-gradient(to bottom, rgba(2,0,36,1) 13%, rgba(39,0,117,1) 100%);
+}
+
+.insta {
+    background: rgb(10,102,211) fixed;
+    background: radial-gradient(circle at 20% 20%, rgb(32, 204, 78) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgb(234, 28, 167) 0%, transparent 50%), 
+                radial-gradient(ellipse at 50% 70%, rgb(78,140,213) 10%, transparent 60%),
+                var(--vignette); 
+}
