@@ -67,11 +67,6 @@
             }
 
 
-
-
-
-
-
         @keyframes twinkle_one {
             0% {
                 opacity: 1;
@@ -206,13 +201,16 @@
         function updateEvent(now) {
             updateNow(now);
             msToTarget = event.dateTime - now.getTime();
-            var timeParts = getTimeParts(msToTarget);
             if (!isNaN(event.dateTime)) {
-                $("#days").innerHTML = timeParts.days > 0 ? timeParts.days : timeParts.days * -1;
-                $("#hours").innerHTML = timeParts.hours > 0 ? timeParts.hours : timeParts.hours * -1;
-                $("#mins").innerHTML = timeParts.mins > 0 ? timeParts.mins : timeParts.mins * -1;
-                $("#secs").innerHTML = timeParts.secs > 0 ? timeParts.secs : timeParts.secs * -1;
-                $("#event").innerHTML = msToTarget > 0 ? `until ${event.name}` : `since ${event.name}`;
+                var timeParts = getTimeParts(msToTarget);
+                var wording = msToTarget > 0 ? "until" : "since";
+
+                $("#days").innerHTML = timeParts.days;
+                $("#hours").innerHTML = timeParts.hours;
+                $("#mins").innerHTML = timeParts.mins;
+                $("#secs").innerHTML = timeParts.secs;
+                $("#event").innerHTML = `${wording} ${event.name}`;
+
             }
         }
 
