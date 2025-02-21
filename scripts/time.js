@@ -8,14 +8,14 @@ var MILLISECS_IN_HOUR = (MILLISECS_IN_SEC * SECS_IN_MIN * MINS_IN_HOUR);
 var MILLISECS_IN_DAY = (MILLISECS_IN_SEC * SECS_IN_MIN * MINS_IN_HOUR * HOURS_IN_DAY);
 
 function getTimeGreeting(datetime) {
-    if (datetime.getHours() > 5 && datetime.getHours() <= 13) { return "morning"; }
-    else if (datetime.getHours() < 19 && datetime.getHours() > 13) { return "afternoon"; }
+    if (datetime.getHours() > 5 && datetime.getHours() <= 12) { return "morning"; }
+    else if (datetime.getHours() < 19 && datetime.getHours() > 12) { return "afternoon"; }
     else { return "evening"; }
 }
 
 function getTimeClass(datetime) {
-    if (datetime.getHours() > 5 && datetime.getHours() <= 13) { return "morning"; }
-    else if (datetime.getHours() < 19 && datetime.getHours() > 13) { return "afternoon"; }
+    if (datetime.getHours() > 5 && datetime.getHours() <= 12) { return "morning"; }
+    else if (datetime.getHours() < 19 && datetime.getHours() > 12) { return "afternoon"; }
     else { return "night"; }
 }
 
